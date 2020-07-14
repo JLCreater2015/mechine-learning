@@ -23,3 +23,7 @@
 
 * [Untitled](cv-tu-xiang-fen-ge/untitled.md)
 
+## 图网络
+
+* [图卷积网络（GCN）](tu-wang-luo/gcn.md)
+

@@ -1,5 +1,5 @@
 ---
-description: 机器学习相关笔记总结和学习。
+description: 机器学习相关知识学习和笔记总结。
 ---
 
 # Introduce

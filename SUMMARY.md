@@ -2,6 +2,10 @@
 
 * [Introduce](README.md)
 
+## Python
+
+* [C++/Python混合编程](python/cpp-python-hybrid-programming.md)
+
 ## 机器学习与模式识别 <a id="pattern-recognition"></a>
 
 * [线性回归](pattern-recognition/linear-regression.md)

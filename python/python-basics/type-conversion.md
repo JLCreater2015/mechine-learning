@@ -135,7 +135,11 @@ bytes 和 str 的转换比较特殊点，在 Python 3.x 中，字符串和字节
 ```python
 str(b'hello world')        # b'hello world'
 
-str() 函数指定 encoding 参数，或者使用 bytes.decode() 方法，可以作实际数据的转换：b'hello world'.decode()                             # hello worldstr(b'hello world', encoding='utf-8')               # hello worldstr(b'\xe4\xb8\xad\xe5\x9b\xbd', encoding='utf-8')  # 中国
+# str() 函数指定 encoding 参数，或者使用 bytes.decode() 方法，可以作实际数据的转换：
+b'hello world'.decode()           # hello world
+
+str(b'hello world', encoding='utf-8')               # hello world
+str(b'\xe4\xb8\xad\xe5\x9b\xbd', encoding='utf-8')  # 中国
 ```
 
 **list -&gt; str**

@@ -21,7 +21,7 @@
 
 ## 机器学习与模式识别 <a id="pattern-recognition"></a>
 
-* [线性回归](pattern-recognition/linear-regression.md)
+* [机器学习](pattern-recognition/machine-learning.md)
 
 ## 机器学习框架 <a id="frameworks-and-libraries"></a>
 
@@ -32,13 +32,10 @@
 
 * [Untitled](backbone-neural-networks/untitled.md)
 
-## CV--目标检测 <a id="object-detection"></a>
+## 计算机视觉 <a id="computer-vision"></a>
 
-* [R-CNN](object-detection/rcnn.md)
-
-## CV--图像分割
-
-* [Untitled](cv-tu-xiang-fen-ge/untitled.md)
+* [目标检测](computer-vision/object-detection.md)
+* [图像分割](computer-vision/image-segmentation.md)
 
 ## CV--场景图生成 <a id="scene-graph-generation"></a>
 
@@ -49,4 +46,8 @@
 ## 图网络
 
 * [图卷积网络（GCN）](tu-wang-luo/gcn.md)
+
+## 数据分析
+
+* [Untitled](shu-ju-fen-xi/untitled.md)
 

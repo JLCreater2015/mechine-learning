@@ -19,9 +19,17 @@
   * [Json & h5py](python/modules/json-h5py.md)
 * [C++/Python混合编程](python/cpp-python-hybrid-programming.md)
 
+## 数学基础
+
+* [微积分](shu-xue-ji-chu/calculus.md)
+* [线性代数](shu-xue-ji-chu/linear-algebra.md)
+* [概率论](shu-xue-ji-chu/probability-theory.md)
+* [组合数学](shu-xue-ji-chu/combinatorial-mathematics.md)
+
 ## 机器学习与模式识别 <a id="pattern-recognition"></a>
 
-* [机器学习](pattern-recognition/machine-learning.md)
+* [机器学习](pattern-recognition/machine-learning/README.md)
+  * [高斯分布](pattern-recognition/machine-learning/gaussian-distribution.md)
 
 ## 机器学习框架 <a id="frameworks-and-libraries"></a>
 

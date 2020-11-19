@@ -23,7 +23,8 @@
 
 * [微积分](shu-xue-ji-chu/calculus.md)
 * [线性代数](shu-xue-ji-chu/linear-algebra.md)
-* [概率论](shu-xue-ji-chu/probability-theory.md)
+* [概率论](shu-xue-ji-chu/probability-theory/README.md)
+  * [古典概型 & 几何概型](shu-xue-ji-chu/probability-theory/classical-geometric-model.md)
 * [组合数学](shu-xue-ji-chu/combinatorial-mathematics.md)
 
 ## 机器学习与模式识别 <a id="pattern-recognition"></a>

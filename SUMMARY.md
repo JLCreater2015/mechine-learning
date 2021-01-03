@@ -39,18 +39,19 @@
 
 ## 基础网络 <a id="backbone-neural-networks"></a>
 
-* [Untitled](backbone-neural-networks/untitled.md)
+* [卷积神经网络](backbone-neural-networks/cnn.md)
+* [循环神经网络](backbone-neural-networks/rnn.md)
 
 ## 计算机视觉 <a id="computer-vision"></a>
 
-* [目标检测](computer-vision/object-detection.md)
+* [目标检测](computer-vision/object-detection/README.md)
+  * [Faster-RCNN原理](computer-vision/object-detection/faster-rcnn.md)
+  * [Faster-RCNN源码解读](computer-vision/object-detection/faster-rcnn-code.md)
 * [图像分割](computer-vision/image-segmentation.md)
 
 ## CV--场景图生成 <a id="scene-graph-generation"></a>
 
-* [2020](scene-graph-generation/sgg2020/README.md)
-  * [09-10](scene-graph-generation/sgg2020/sgg-2020-09-10.md)
-* [数据集](scene-graph-generation/scene-graph-generation-datasets.md)
+* [场景图生成资源](scene-graph-generation/sgg-resource.md)
 
 ## 图网络
 
@@ -59,4 +60,8 @@
 ## 数据分析
 
 * [Untitled](shu-ju-fen-xi/untitled.md)
+
+## Vision-and-Language
+
+* [Untitled](vision-and-language/untitled.md)
 

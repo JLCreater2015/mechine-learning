@@ -19,15 +19,20 @@
 
 #### 💎 1.3.1、Two-Stage
 
-* R-CNN——
-* Fast R-CNN——
-* Faster R-CNN——
+* R-CNN \|\|
+* Fast R-CNN \|\|
+* Faster R-CNN \|\|
 
 #### 💎 1.3.2、One-Stage
+
+* YOLOv1
+* SSD
 
 #### 💎 1.3.3、其他
 
 ### ⚽ 1.4、年度代表论文
+
+* CenterNet \|\|
 
 ## ✏ 2、代码
 
@@ -57,4 +62,8 @@
 ### ⚽ 2.4、其他
 
 ## ✏ 3、其他资源
+
+### ⚽ 3.1、博客
+
+* R-CNN: [https://www.telesens.co/2018/03/11/object-detection-and-classification-using-r-cnns/](https://www.telesens.co/2018/03/11/object-detection-and-classification-using-r-cnns/)
 

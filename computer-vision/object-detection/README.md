@@ -19,6 +19,10 @@
 
 #### 💎 1.3.1、Two-Stage
 
+* R-CNN——
+* Fast R-CNN——
+* Faster R-CNN——
+
 #### 💎 1.3.2、One-Stage
 
 #### 💎 1.3.3、其他
@@ -34,6 +38,19 @@
 * **maskrcnn-benchmark —— PyTorch —— Facebook ——** [**GitHub**](https://github.com/facebookresearch/maskrcnn-benchmark/)\*\*\*\*
 
 ### ⚽ 2.2、Faster-RCNN代码
+
+#### 💎 2.2.1、官方代码
+
+* **Fast-RCNN:** [**rbgirshick**](https://github.com/rbgirshick)**/**[**fast-rcnn**](https://github.com/rbgirshick/fast-rcnn)\*\*\*\*
+* **Faster-RCNN:** [**ShaoqingRen**](https://github.com/ShaoqingRen)**/**[**faster\_rcnn**](https://github.com/ShaoqingRen/faster_rcnn)\*\*\*\*
+
+#### 💎 2.2.2、其他
+
+* \*\*\*\*[**jwyang**](https://github.com/jwyang)**/**[**faster-rcnn.pytorch**](https://github.com/jwyang/faster-rcnn.pytorch)**, developed based on Pytorch + Numpy**
+* \*\*\*\*[**rbgirshick/py-faster-rcnn**](https://github.com/rbgirshick/py-faster-rcnn)**, developed based on Pycaffe + Numpy**
+* \*\*\*\*[**longcw/faster\_rcnn\_pytorch**](https://github.com/longcw/faster_rcnn_pytorch)**, developed based on Pytorch + Numpy**
+* \*\*\*\*[**endernewton/tf-faster-rcnn**](https://github.com/endernewton/tf-faster-rcnn)**, developed based on TensorFlow + Numpy**
+* \*\*\*\*[**ruotianluo/pytorch-faster-rcnn**](https://github.com/ruotianluo/pytorch-faster-rcnn)**, developed based on Pytorch + TensorFlow + Numpy**
 
 ### ⚽ 2.3、YOLO系列代码
 

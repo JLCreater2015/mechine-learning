@@ -57,11 +57,11 @@
 
 * [图卷积网络（GCN）](tu-wang-luo/gcn.md)
 
-## 数据分析
-
-* [Untitled](shu-ju-fen-xi/untitled.md)
-
 ## Vision-and-Language
 
 * [Untitled](vision-and-language/untitled.md)
+
+## 数据分析
+
+* [Untitled](shu-ju-fen-xi/untitled.md)
 

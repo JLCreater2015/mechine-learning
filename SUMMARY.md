@@ -37,10 +37,11 @@
 * [Pytorch](frameworks-and-libraries/pytorch.md)
 * [TensorFlow](frameworks-and-libraries/tensorflow.md)
 
-## 基础网络 <a id="backbone-neural-networks"></a>
+## 深度学习 <a id="deep-learning"></a>
 
-* [卷积神经网络](backbone-neural-networks/cnn.md)
-* [循环神经网络](backbone-neural-networks/rnn.md)
+* [深度学习资源](deep-learning/deep-learning-resource.md)
+* [卷积神经网络](deep-learning/cnn.md)
+* [循环神经网络](deep-learning/rnn.md)
 
 ## 计算机视觉 <a id="computer-vision"></a>
 
@@ -48,10 +49,13 @@
   * [Faster-RCNN原理](computer-vision/object-detection/faster-rcnn.md)
   * [Faster-RCNN源码解读](computer-vision/object-detection/faster-rcnn-code.md)
 * [图像分割](computer-vision/image-segmentation.md)
+* [人物交互](computer-vision/human-object-interaction.md)
 
 ## CV--场景图生成 <a id="scene-graph-generation"></a>
 
 * [场景图生成资源](scene-graph-generation/sgg-resource.md)
+* [基于图网络的模型](scene-graph-generation/sgg-gnn.md)
+* [基于RNN的模型](scene-graph-generation/sgg-rnn.md)
 
 ## 图网络
 
@@ -59,7 +63,7 @@
 
 ## Vision-and-Language
 
-* [Untitled](vision-and-language/untitled.md)
+* [图像描述](vision-and-language/image-captioning.md)
 
 ## 数据分析
 

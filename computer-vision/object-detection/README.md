@@ -19,20 +19,26 @@
 
 #### 💎 1.3.1、Two-Stage
 
-* R-CNN \|\|
-* Fast R-CNN \|\|
-* Faster R-CNN \|\|
+* R-CNN \|\| [Rich feature hierarchies for accurate object detection and semantic](https://ieeexplore.ieee.org/document/6909475) \|\| CVPR 2014
+* Fast R-CNN \|\| [Fast R-CNN](http://arxiv.org/abs/1504.08083) \|\| ICCV 2015
+* Faster R-CNN \|\| [Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks](https://arxiv.org/pdf/1506.01497.pdf) \|\| NIPS 2015 
 
 #### 💎 1.3.2、One-Stage
 
-* YOLOv1
-* SSD
+* YOLOv1 \|\| [You Only Look Once: Unified, Real-Time Object Detection](https://arxiv.org/abs/1506.02640)
+* YOLOv2 \|\| [YOLO9000: Better, Faster, Stronger](https://arxiv.org/abs/1612.08242)
+* YOLOv3 \|\| [YOLOv3: An Incremental Improvement](https://arxiv.org/abs/1804.02767)
+* SSD \|\| [SSD: Single Shot MultiBox Detector](https://arxiv.org/abs/1512.02325) \|\| ECCV 2016
+* YOLOv4 \|\| [YOLOv4: Optimal Speed and Accuracy of Object Detection](https://arxiv.org/abs/2004.10934)
 
 #### 💎 1.3.3、其他
 
+* Adaptive NMS \|\| [Adaptive NMS: Refining Pedestrian Detection in a Crowd](https://arxiv.org/pdf/1904.03629.pdf) \|\| CVPR 2019
+
 ### ⚽ 1.4、年度代表论文
 
-* CenterNet \|\|
+* CenterNet \|\| [Objects as Points](https://arxiv.org/pdf/1904.07850.pdf) \|\| ICCV 2019 \|\| \[[Code](https://github.com/xingyizhou/CenterNet)\]
+* Scaled-YOLOv4 \|\| [Scaled-YOLOv4: Scaling Cross Stage Partial Network](https://arxiv.org/abs/2011.08036)
 
 ## ✏ 2、代码
 
@@ -41,6 +47,7 @@
 * **MMDetection —— PyTorch —— 商汤科技 ——** [**GitHub**](https://github.com/open-mmlab/mmdetection)\*\*\*\*
 * **Detectron2 —— PyTorch —— Facebook ——** [**GitHub**](https://github.com/facebookresearch/detectron2)\*\*\*\*
 * **maskrcnn-benchmark —— PyTorch —— Facebook ——** [**GitHub**](https://github.com/facebookresearch/maskrcnn-benchmark/)\*\*\*\*
+* **Darknet —— C —— Joseph Redmon ——** [**GitHub**](https://github.com/pjreddie/darknet)\*\*\*\*
 
 ### ⚽ 2.2、Faster-RCNN代码
 
@@ -58,6 +65,11 @@
 * \*\*\*\*[**ruotianluo/pytorch-faster-rcnn**](https://github.com/ruotianluo/pytorch-faster-rcnn)**, developed based on Pytorch + TensorFlow + Numpy**
 
 ### ⚽ 2.3、YOLO系列代码
+
+* \*\*\*\*[**hizhangp**](https://github.com/hizhangp)**/**[**yolo\_tensorflow**](https://github.com/hizhangp/yolo_tensorflow)**, developed based on TensorFlow + Numpy**
+* \*\*\*\*[**Tencent**](https://github.com/Tencent)**/**[**ObjectDetection-OneStageDet**](https://github.com/Tencent/ObjectDetection-OneStageDet)\*\*\*\*
+* \*\*\*\*[**amusi**](https://github.com/amusi)**/**[**YOLO-Reproduce-Summary**](https://github.com/amusi/YOLO-Reproduce-Summary)\*\*\*\*
+* \*\*\*\*[**AlexeyAB**](https://github.com/AlexeyAB)**/**[**darknet**](https://github.com/AlexeyAB/darknet)\*\*\*\*
 
 ### ⚽ 2.4、其他
 

@@ -31,6 +31,7 @@
 
 * [机器学习](pattern-recognition/machine-learning/README.md)
   * [高斯分布](pattern-recognition/machine-learning/gaussian-distribution.md)
+  * [线性回归](pattern-recognition/machine-learning/linear-regression.md)
   * [支持向量机](pattern-recognition/machine-learning/support-vector-machine.md)
 
 ## 机器学习框架 <a id="frameworks-and-libraries"></a>

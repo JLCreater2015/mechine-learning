@@ -6,7 +6,13 @@
 
 ### 频率派——统计机器学习
 
-频率派认为参数 $$\theta$$ 为未知常量， $$X$$ 是已知的随机变量（r.v.），对于 $$N$$ 个观测来说观测集的概率为 $$p(X|\theta)\ \underset{=}{iid}\ \prod_\limits{i=1}^{N}p(x_{i}|\theta))$$ 。采用最大对数似然_`MLE`_的方法，通过 $$X$$ 估计出参数 $$\theta$$ ： $$\theta_{MLE} = arg max_{\theta}\  log\ P(X | \theta)$$ ， $$log\ p(X | \theta)$$ 记作 $$\mathcal{L}(\theta)$$ ，其中 $$x_i \ \underset{\sim}{iid} \ \  p(x|\theta)$$ ，则有 $$log P(X|\theta) = \sum\limits^N_{i=1}p(x_i|\theta)$$ 。
+频率派认为参数 $$\theta$$ 为未知常量， $$X$$ 是已知的随机变量（r.v.），对于 $$N$$ 个观测来说，观测集的概率为 $$p(X|\theta)\ \underset{=}{iid}\ \prod_\limits{i=1}^{N}p(x_{i}|\theta))$$ 。采用最大对数似然_`MLE`_的方法，通过 $$X$$ 估计出参数 $$\theta$$ ： 
+
+$$
+\theta_{MLE} = arg max_{\theta}\  log\ P(X | \theta)
+$$
+
+ $$log\ p(X | \theta)$$ 记作 $$\mathcal{L}(\theta)$$ ，其中 $$x_i \ \underset{\sim}{iid} \ \  p(x|\theta)$$ ，则有 $$log P(X|\theta) = \sum\limits^N_{i=1}p(x_i|\theta)$$ 。
 
 ### 贝叶斯派——概率图模型
 
@@ -16,19 +22,25 @@ $$
 P(\theta | X) = \frac{P(X|\theta)\cdot P(\theta)}{P(X)}=\int_{\theta} P(X|\theta)\cdot P(\theta) d\theta \  \propto \ P(X|\theta)\cdot P(\theta)
 $$
 
-MAP：最大后验概率估计，找出让后验概率最大的点（众数）作为代替，则有： 
+MAP：为了求 $$\theta$$ 的值，我们要最大后验概率估计，找出让后验概率最大的点（众数）作为代替，则有： 
 
 $$
 \theta_{MAP}= arg max_{\theta} P(\theta | X) = arg max_{\theta} P(X|\theta)\cdot P(\theta)
 $$
+
+其中第二个等号是因为分母和 $$\theta$$ 没有关系。求解这个 $$\theta$$值后计算 $$\frac{p(X|\theta)\cdot p(\theta)}{\int_{\theta}p(X|\theta)\cdot p(\theta)d\theta}$$ ，就得到了参数的后验概率。其中 $$p(X|\theta)$$ 叫似然，是我们的模型分布。得到了参数的后验分布后，我们可以将这个分布用于预测贝叶斯预测，已知 $$X$$ ，新样本 $$\tilde{x}$$ ，则 ：
+
+$$
+p(\tilde{x} | X) = \int_{\theta}p(\tilde{x},\theta | X)d\theta = \int_{\theta}p(\tilde{x}| \theta)\cdot p(\theta | X)d\theta
+$$
+
+其中积分中的被乘数是模型，乘数是后验分布。
 
 严格来说，MAP并不是严格的贝叶斯估计，贝叶斯估计：
 
 $$
 P(\theta | X) = \frac{P(X|\theta)\cdot P(\theta)}{\int_{\theta}p(x | \theta)\cdot p(\theta)d\theta}
 $$
-
-贝叶斯预测：已知 $$X$$ ，新样本 $$\tilde{x}$$ ，则 $$p(\tilde{x} | X) = \int_{\theta}p(\tilde{x},\theta | X)d\theta = \int_{\theta}p(\tilde{x}| \theta)\cdot p(\theta | X)d\theta$$ 
 
 **总结：从贝叶斯的角度来看，机器学习的本质就是求积分的问题，从频率的角度来看，机器学习的本质是优化问题，相当于是解`loss function`。**
 

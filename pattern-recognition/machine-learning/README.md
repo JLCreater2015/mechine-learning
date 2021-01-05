@@ -6,7 +6,7 @@
 
 ### 频率派——统计机器学习
 
-频率派认为参数 $$\theta$$ 为未知常量， $$X$$ 是已知的随机变量（r.v.），则要通过 $$X$$ 估计出参数 $$\theta$$ ： $$\theta_{MLE} = arg max_{\theta}\  log\ P(X | \theta)$$ ， $$log\ p(X | \theta)$$ 记作 $$\mathcal{L}(\theta)$$ ，其中 $$x_i \ \underset{\sim}{iid} \ \  p(x|\theta)$$ ，则有 $$log P(X|\theta) = \sum^N_{i=1}p(x_i|\theta)$$ 。
+频率派认为参数 $$\theta$$ 为未知常量， $$X$$ 是已知的随机变量（r.v.），对于 $$N$$ 个观测来说观测集的概率为 $$p(X|\theta)\ \underset{=}{iid}\ \prod_\limits{i=1}^{N}p(x_{i}|\theta))$$ 。采用最大对数似然_`MLE`_的方法，通过 $$X$$ 估计出参数 $$\theta$$ ： $$\theta_{MLE} = arg max_{\theta}\  log\ P(X | \theta)$$ ， $$log\ p(X | \theta)$$ 记作 $$\mathcal{L}(\theta)$$ ，其中 $$x_i \ \underset{\sim}{iid} \ \  p(x|\theta)$$ ，则有 $$log P(X|\theta) = \sum\limits^N_{i=1}p(x_i|\theta)$$ 。
 
 ### 贝叶斯派——概率图模型
 

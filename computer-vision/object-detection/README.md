@@ -26,8 +26,8 @@
 
 #### 💎 1.3.2、One-Stage
 
-* YOLOv1 \|\| [You Only Look Once: Unified, Real-Time Object Detection](https://arxiv.org/abs/1506.02640)
-* YOLOv2 \|\| [YOLO9000: Better, Faster, Stronger](https://arxiv.org/abs/1612.08242)
+* YOLOv1 \|\| [You Only Look Once: Unified, Real-Time Object Detection](https://arxiv.org/abs/1506.02640) \|\| CVPR 2016
+* YOLOv2 \|\| [YOLO9000: Better, Faster, Stronger](https://arxiv.org/abs/1612.08242) \|\| CVPR 2017
 * YOLOv3 \|\| [YOLOv3: An Incremental Improvement](https://arxiv.org/abs/1804.02767)
 * SSD \|\| [SSD: Single Shot MultiBox Detector](https://arxiv.org/abs/1512.02325) \|\| ECCV 2016
 * YOLOv4 \|\| [YOLOv4: Optimal Speed and Accuracy of Object Detection](https://arxiv.org/abs/2004.10934)

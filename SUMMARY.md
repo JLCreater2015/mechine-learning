@@ -43,23 +43,21 @@
 * [卷积神经网络](deep-learning/cnn.md)
 * [循环神经网络](deep-learning/rnn.md)
 
+## 图网络
+
+* [图卷积网络（GCN）](tu-wang-luo/gcn.md)
+
 ## 计算机视觉 <a id="computer-vision"></a>
 
+* [图像分类](computer-vision/image-classification.md)
 * [目标检测](computer-vision/object-detection/README.md)
   * [Faster-RCNN原理](computer-vision/object-detection/faster-rcnn.md)
   * [Faster-RCNN源码解读](computer-vision/object-detection/faster-rcnn-code.md)
 * [图像分割](computer-vision/image-segmentation.md)
 * [人物交互](computer-vision/human-object-interaction.md)
-
-## CV--场景图生成 <a id="scene-graph-generation"></a>
-
-* [场景图生成资源](scene-graph-generation/sgg-resource.md)
-* [基于图网络的模型](scene-graph-generation/sgg-gnn.md)
-* [基于RNN的模型](scene-graph-generation/sgg-rnn.md)
-
-## 图网络
-
-* [图卷积网络（GCN）](tu-wang-luo/gcn.md)
+* [行为识别](computer-vision/action-recognition.md)
+* [场景图生成](computer-vision/scene-graph-generation/README.md)
+  * [基于图网络的模型](computer-vision/scene-graph-generation/sgg-gnn.md)
 
 ## Vision-and-Language
 

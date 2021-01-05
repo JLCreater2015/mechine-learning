@@ -14,6 +14,7 @@
 
 *  [deep\_learning\_object\_detection](https://github.com/hoya012/deep_learning_object_detection)
 *  [ObjectDetectionImbalance](https://github.com/kemaloksuz/ObjectDetectionImbalance)
+*  [awesome-object-detection](https://github.com/amusi/awesome-object-detection)
 
 ### ⚽ 1.3、经典论文
 
@@ -30,21 +31,19 @@
 * YOLOv3 \|\| [YOLOv3: An Incremental Improvement](https://arxiv.org/abs/1804.02767)
 * SSD \|\| [SSD: Single Shot MultiBox Detector](https://arxiv.org/abs/1512.02325) \|\| ECCV 2016
 * YOLOv4 \|\| [YOLOv4: Optimal Speed and Accuracy of Object Detection](https://arxiv.org/abs/2004.10934)
+* Scaled-YOLOv4 \|\| [Scaled-YOLOv4: Scaling Cross Stage Partial Network](https://arxiv.org/abs/2011.08036)
 
 #### 💎 1.3.3、其他
 
 * Adaptive NMS \|\| [Adaptive NMS: Refining Pedestrian Detection in a Crowd](https://arxiv.org/pdf/1904.03629.pdf) \|\| CVPR 2019
-
-### ⚽ 1.4、年度代表论文
-
 * CenterNet \|\| [Objects as Points](https://arxiv.org/pdf/1904.07850.pdf) \|\| ICCV 2019 \|\| \[[Code](https://github.com/xingyizhou/CenterNet)\]
-* Scaled-YOLOv4 \|\| [Scaled-YOLOv4: Scaling Cross Stage Partial Network](https://arxiv.org/abs/2011.08036)
 
 ## ✏ 2、代码
 
 ### ⚽ 2.1、框架
 
 * **MMDetection —— PyTorch —— 商汤科技 ——** [**GitHub**](https://github.com/open-mmlab/mmdetection)\*\*\*\*
+* **Detectron —— PyTorch —— Facebook ——** [**GitHub**](https://github.com/facebookresearch/Detectron)\*\*\*\*
 * **Detectron2 —— PyTorch —— Facebook ——** [**GitHub**](https://github.com/facebookresearch/detectron2)\*\*\*\*
 * **maskrcnn-benchmark —— PyTorch —— Facebook ——** [**GitHub**](https://github.com/facebookresearch/maskrcnn-benchmark/)\*\*\*\*
 * **Darknet —— C —— Joseph Redmon ——** [**GitHub**](https://github.com/pjreddie/darknet)\*\*\*\*
@@ -63,6 +62,7 @@
 * \*\*\*\*[**longcw/faster\_rcnn\_pytorch**](https://github.com/longcw/faster_rcnn_pytorch)**, developed based on Pytorch + Numpy**
 * \*\*\*\*[**endernewton/tf-faster-rcnn**](https://github.com/endernewton/tf-faster-rcnn)**, developed based on TensorFlow + Numpy**
 * \*\*\*\*[**ruotianluo/pytorch-faster-rcnn**](https://github.com/ruotianluo/pytorch-faster-rcnn)**, developed based on Pytorch + TensorFlow + Numpy**
+* \*\*\*\*[**rbgirshick**](https://github.com/rbgirshick)**/**[**fast-rcnn**](https://github.com/rbgirshick/fast-rcnn)**, developed based on Python + C++/Caffe**
 
 ### ⚽ 2.3、YOLO系列代码
 
@@ -70,6 +70,10 @@
 * \*\*\*\*[**Tencent**](https://github.com/Tencent)**/**[**ObjectDetection-OneStageDet**](https://github.com/Tencent/ObjectDetection-OneStageDet)\*\*\*\*
 * \*\*\*\*[**amusi**](https://github.com/amusi)**/**[**YOLO-Reproduce-Summary**](https://github.com/amusi/YOLO-Reproduce-Summary)\*\*\*\*
 * \*\*\*\*[**AlexeyAB**](https://github.com/AlexeyAB)**/**[**darknet**](https://github.com/AlexeyAB/darknet)\*\*\*\*
+* **MobileNet-YOLO**
+  * **Caffe实现【**[链接](https://github.com/eric612/MobileNet-YOLO)】【[windows版](https://github.com/eric612/Caffe-YOLOv3-Windows)】
+  * **Keras实现【**[链接](https://github.com/Adamdad/keras-YOLOv3-mobilenet)】
+  * **MXNet实现【**[链接1](https://gluon-cv.mxnet.io/model_zoo/detection.html#yolo-v3)】【[链接2](https://github.com/dmlc/gluon-cv/tree/master/gluoncv/model_zoo/yolo)】【[链接3](https://github.com/sufeidechabei/gluon-mobilenet-yolov3)】
 
 ### ⚽ 2.4、其他
 
@@ -78,4 +82,7 @@
 ### ⚽ 3.1、博客
 
 * R-CNN: [https://www.telesens.co/2018/03/11/object-detection-and-classification-using-r-cnns/](https://www.telesens.co/2018/03/11/object-detection-and-classification-using-r-cnns/)
+* YOLO代码解析：[https://zhuanlan.zhihu.com/p/49981816](https://zhuanlan.zhihu.com/p/49981816)
+* 论文整理：[https://zhuanlan.zhihu.com/p/93703085](https://zhuanlan.zhihu.com/p/93703085)
+* 综述：[https://zhuanlan.zhihu.com/p/94090477](https://zhuanlan.zhihu.com/p/94090477)
 

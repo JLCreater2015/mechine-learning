@@ -34,6 +34,7 @@
 
 ## 机器学习框架 <a id="frameworks-and-libraries"></a>
 
+* [scikit-learn](frameworks-and-libraries/scikit-learn.md)
 * [Pytorch](frameworks-and-libraries/pytorch.md)
 * [TensorFlow](frameworks-and-libraries/tensorflow.md)
 

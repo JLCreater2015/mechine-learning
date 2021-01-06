@@ -30,9 +30,9 @@
 ## 机器学习与模式识别 <a id="pattern-recognition"></a>
 
 * [机器学习](pattern-recognition/machine-learning/README.md)
-  * [Untitled](pattern-recognition/machine-learning/untitled.md)
   * [高斯分布](pattern-recognition/machine-learning/gaussian-distribution.md)
   * [线性回归](pattern-recognition/machine-learning/linear-regression.md)
+  * [线性分类](pattern-recognition/machine-learning/linear-classification.md)
   * [支持向量机](pattern-recognition/machine-learning/support-vector-machine.md)
 
 ## 机器学习框架 <a id="frameworks-and-libraries"></a>

@@ -58,6 +58,7 @@
   * [Faster-RCNN原理](computer-vision/object-detection/faster-rcnn.md)
   * [Faster-RCNN源码解读](computer-vision/object-detection/faster-rcnn-code.md)
 * [图像分割](computer-vision/image-segmentation.md)
+* [目标跟踪](computer-vision/target-tracking.md)
 * [人物交互](computer-vision/human-object-interaction.md)
 * [行为识别](computer-vision/action-recognition.md)
 * [场景图生成](computer-vision/scene-graph-generation/README.md)

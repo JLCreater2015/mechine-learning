@@ -1,4 +1,18 @@
 # 目标跟踪
 
-图神经网络库DGL、NGra、Euler、PyTorch-BigGraph\(PBG\)，阿里大规模图神经网络平台 AliGraph，商汤目标跟踪库PySOT,目标检测库MMDetection。
+## ✏ 1、论文
+
+### ⚽ 1.1、综述
+
+### ⚽ 1.2、GitHub List
+
+### ⚽ 1.3、经典论文
+
+#### 
+
+## ✏ 2、代码
+
+### ⚽ 2.1、框架
+
+* **PySOT —— PyTorch —— 商汤科技 ——** [**GitHub**](https://github.com/STVIR/pysot)\*\*\*\*
 

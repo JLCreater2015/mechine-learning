@@ -57,6 +57,7 @@
 * [目标检测](computer-vision/object-detection/README.md)
   * [Faster-RCNN原理](computer-vision/object-detection/faster-rcnn.md)
   * [Faster-RCNN源码解读](computer-vision/object-detection/faster-rcnn-code.md)
+  * [YOLO原理](computer-vision/object-detection/yolo.md)
 * [图像分割](computer-vision/image-segmentation.md)
 * [目标跟踪](computer-vision/target-tracking.md)
 * [人物交互](computer-vision/human-object-interaction.md)

@@ -179,7 +179,34 @@ $$
 
 ### 💎 已知边缘概率和条件概率求联合概率
 
-已知 $$p(x)=\mathcal{N}(\mu,\Lambda^{-1}),p(y|x)=\mathcal{N}(Ax+b,L^{-1})$$ ，求解 $$p(y),p(x|y)$$ ？ 
+已知 $$p(x)=\mathcal{N}(\mu,\Lambda^{-1}),p(y|x)=\mathcal{N}(Ax+b,L^{-1})$$ ，求解 $$p(y),p(x|y)$$ ？  $$\Lambda$$ 为 $$precision\ matrix<=>(covariance\ matrix)^{-1}$$ 
 
-贝叶斯定理：$$p(x|y)=\frac{p(y|x)p(x)}{p(y)}$$ ，且均值看起来有一个假设 $$y=Ax+B$$ 。
+贝叶斯定理：$$p(x|y)=\frac{p(y|x)p(x)}{p(y)}$$ 。
+
+解：令 $$y=Ax+b+\epsilon,\epsilon\sim\mathcal{N}(0,L^{-1})$$ ，所以 $$\mathbb{E}[y]=\mathbb{E}[Ax+b+\epsilon]=A\mu+b$$ ， $$Var[y]=A \Lambda^{-1}A^T+L^{-1}$$ ，因此：
+
+$$
+p(y)=\mathcal{N}(A\mu+b,L^{-1}+A\Lambda^{-1}A^T)
+$$
+
+引入 $$z=\begin{pmatrix}x\\y\end{pmatrix}$$ ，我们可以得到 $$Cov[x,y]=\mathbb{E}[(x-\mathbb{E}[x])(y-\mathbb{E}[y])^T]$$ 。对于这个协方差可以直接计算：
+
+$$
+\begin{align}
+Cov(x,y)&=\mathbb{E}[(x-\mu)(Ax-A\mu+\epsilon)^T]\\ &=\mathbb{E}[(x-\mu)(x-\mu)^TA^T]\\ &=Var[x]A^T=\Lambda^{-1}A^T
+ \end{align}
+$$
+
+注意到协方差矩阵的对称性，所以：
+
+$$
+p(z)=\mathcal{N}\Bigg(\begin{pmatrix}\mu\\A\mu+b\end{pmatrix},\begin{pmatrix}\Lambda^{-1}&\Lambda^{-1}A^T\\A\Lambda^{-1}&L^{-1}+A\Lambda^{-1}A^T\end{pmatrix}\Bigg)
+$$
+
+根据之前的公式，我们可以得到：
+
+$$
+\mathbb{E}[x|y]=\mu+\Lambda^{-1}A^T(L^{-1}+A\Lambda^{-1}A^T)^{-1}(y-A\mu-b) \\
+Var[x|y]=\Lambda^{-1}-\Lambda^{-1}A^T(L^{-1}+A\Lambda^{-1}A^T)^{-1}A\Lambda^{-1}
+$$
 

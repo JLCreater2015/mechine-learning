@@ -1,6 +1,6 @@
 # 高斯分布
 
-数据 $$X=(x_1, x_2, \cdots, x_N)^T_{N\times p}=\begin{pmatrix}  x_{11} & x_{12} & \cdots & x_{1p} \\  x_{21} & x_{22} & \cdots & x_{2p} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ x_{N1} & x_{N2} & \cdots & x_{Np} \end{pmatrix} _{N\times p}$$ 有 $$N$$ 个样本，每个样本的维度为 $$p$$ ， 即 $$x_i \in R^p$$ ， $$x_i \  \mathop{\sim}\limits^{iid} \  N(\mu, \Sigma)$$ （`iid`：独立同分布）。
+数据 $$X=(x_1, x_2, \cdots, x_N)^T_{N\times p}=\begin{pmatrix}  x_{11} & x_{12} & \cdots & x_{1p} \\  x_{21} & x_{22} & \cdots & x_{2p} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ x_{N1} & x_{N2} & \cdots & x_{Np} \end{pmatrix} _{N\times p}$$ 有 $$N$$ 个样本，每个样本的维度为 $$p$$ ， 即 $$x_i \in R^p$$ ， $$x_i \  \mathop{\sim}\limits^{iid} \  \mathcal{N}(\mu, \Sigma)$$ （`iid`：独立同分布）。
 
 令 $$\theta=(\mu,\Sigma)=(\mu,\sigma^{2})$$ ，在 `MLE` 方法中：
 
@@ -103,7 +103,7 @@ $$
 
 ![](../../.gitbook/assets/image%20%281%29.png)
 
-### 💎 多维高斯模型在实际应用时的两个问题：
+### 💎 2.1、多维高斯模型在实际应用时的两个问题：
 
 #### 🎾 1、参数 $$\Sigma,\mu$$ 的自由度为 $$O(p^{2})$$ ，对于维度很高的数据其自由度太高。
 
@@ -111,7 +111,7 @@ $$
 
 #### 🎾 2、第二个问题是单个高斯分布是单峰的，对有多个峰的数据分布不能得到好的结果。解决方案：高斯混合`GMM` 模型。
 
-### 💎 已知联合概率求边缘概率和条件概率
+### 💎 2.2、已知联合概率求边缘概率和条件概率
 
 记 $$x=(x1, x_2,\cdots,x_p)^T=(x_{a,m\times 1}, x_{b,n\times1})^T, m+n = p$$ ， $$\mu=(\mu_{a,m\times1}, \mu_{b,n\times1})$$ ， $$\Sigma=\begin{pmatrix}\Sigma_{aa}&\Sigma_{ab}\\ \Sigma_{ba}&\Sigma_{bb}\end{pmatrix}$$ ， $$x\sim\mathcal{N}(\mu,\Sigma)$$ 。求 $$p(x_a),p(x_b|x_a),p(x_b),p(x_a|x_b)$$ ？（配方法）
 
@@ -177,7 +177,7 @@ $$
 Var[x_a|x_b]=\Sigma_{aa\cdot b}
 $$
 
-### 💎 已知边缘概率和条件概率求联合概率
+### 💎 2.3、已知边缘概率和条件概率求联合概率
 
 已知 $$p(x)=\mathcal{N}(\mu,\Lambda^{-1}),p(y|x)=\mathcal{N}(Ax+b,L^{-1})$$ ，求解 $$p(y),p(x|y)$$ ？  $$\Lambda$$ 为 $$precision\ matrix<=>(covariance\ matrix)^{-1}$$ 
 
@@ -193,7 +193,8 @@ $$
 
 $$
 \begin{align}
-Cov(x,y)&=\mathbb{E}[(x-\mu)(Ax-A\mu+\epsilon)^T]\\ &=\mathbb{E}[(x-\mu)(x-\mu)^TA^T]\\ &=Var[x]A^T=\Lambda^{-1}A^T
+Cov(x,y)&=E[(x-E[x])(y-E[y])^T]\\ &=e[(x-\mu)(y-A\mu -b)^T]\\ &=\mathbb{E}[(x-\mu)(Ax-A\mu+\epsilon)^T]\\ &
+=E[(x-\mu)(Ax-A\mu)^T + (x-\mu)\epsilon^T]\\ &=E[(x-\mu)(Ax-A\mu)^T]+E[(x-u)\epsilon^T]\\ &=\mathbb{E}[(x-\mu)(x-\mu)^TA^T]\\ &=E[(x-\mu)(x-\mu)^T]A^T\\ &=Var[x]A^T=\Lambda^{-1}A^T
  \end{align}
 $$
 
@@ -209,4 +210,34 @@ $$
 \mathbb{E}[x|y]=\mu+\Lambda^{-1}A^T(L^{-1}+A\Lambda^{-1}A^T)^{-1}(y-A\mu-b) \\
 Var[x|y]=\Lambda^{-1}-\Lambda^{-1}A^T(L^{-1}+A\Lambda^{-1}A^T)^{-1}A\Lambda^{-1}
 $$
+
+所以 $$p(x|y)=\mathcal{N}(\mathbb{E}[x|y],Var[x|y])$$ 。
+
+## ✏ 3、Jensen's Inequality
+
+### 💎 3.1、定义
+
+假设 $$f(x)$$ 是`connex function`（凸函数），则 $$E[f(x)]\ge f(E[x])$$ 。
+
+证明：
+
+![](../../.gitbook/assets/image%20%282%29.png)
+
+因为 $$f(x)$$ 是`connex function`，所以 $$\forall x,f(x)\ge l(x)$$ ，两边同时求期望：
+
+$$
+\begin{align}
+E[f(x)]& \ge E[l[x]]=E[ax+b]\\
+&=E[ax]+E[b]=aE[x]+b\\
+&=f(E[x])
+\end{align}
+$$
+
+所以 $$E[f(x)]\ge f(E[x])$$ 。
+
+### 💎 3.2、使用
+
+![](../../.gitbook/assets/image%20%283%29.png)
+
+因此可以得到 $$g(c)=tf(a)+(1-t)f(b)\ge f(c)$$ ， 也就是说凸函数任意两点的割线位于函数图形上方， **这也是Jensen不等式的两点形式**。
 

@@ -212,9 +212,9 @@ $$
 * 速度瓶颈：重复为每个region proposal提取特征是极其费时的，Selective Search对于每幅图片产生`2K`左右个region proposal，也就是意味着一幅图片需要经过2K次的完整的CNN计算得到最终的结果。
 * 性能瓶颈：对于所有的region proposal防缩到固定的尺寸会导致我们不期望看到的几何形变，而且由于速度瓶颈的存在，不可能采用多尺度或者是大量的数据增强去训练模型。
 
-## 🖌 2、 **SPP Net**
+## 🖌 2、 **`SPP Net`**
 
-Spatial Pyramid Pooling（空间金字塔池化）
+**Spatial Pyramid Pooling（空间金字塔池化）**
 
 **论文：Spatial Pyramid Pooling in Deep Convolutional Networks for Visual Recognition**
 
@@ -227,11 +227,11 @@ Spatial Pyramid Pooling（空间金字塔池化）
 
 我们知道卷积网络的参数主要是卷积核，完全能够适用任意大小的输入，并且能够产生任意大小的输出。但是全连接层部分不同，全连接层部分的参数是神经元对于所有输入的连接权重，也就是说输入尺寸不固定的话，全连接层参数的个数都不能固定。之前的做法是切割或者缩放形变处理到固定大小，这样虽然满足了CNN对图片大小的要求，确造成图片的信息缺失或者变形，会降低图片识别的正确率。`SPPNet`则直接先对整张图片进行特征抽取，再在这一大张feature map上，接上一个`SPP layer`：
 
-![](../../.gitbook/assets/image%20%2813%29.png)
+![](../../.gitbook/assets/image%20%2814%29.png)
 
 根据pooling规则，每个pooling bin（window）对应一个输出，所以最终pooling后特征输出由bin的个数来决定。本文就是分级固定bin的个数，调整bin的尺寸来实现多级pooling固定输出。如图所示：
 
-![](../../.gitbook/assets/image%20%2812%29.png)
+![](../../.gitbook/assets/image%20%2813%29.png)
 
 具体做法是，在`conv5`层得到的特征图是256层，每层都做一次spatial pyramid pooling。先把每个特征图分割成多个不同尺寸的网格，比如网格分别为 $$4\times 4$$ 、 $$2\times 2$$ 、 $$1\times 1$$ ，然后每个网格做max pooling，这样256层特征图就形成了 $$16\times256$$ ， $$4\times256$$ ， $$1\times 256$$ 维特征，将pooling得到的tensor，沿channel方向一根根抽取出来，头尾拼接，就形成了一个固定长度的特征向量，将这个向量输入到后面的全连接层。
 
@@ -243,6 +243,8 @@ Spatial Pyramid Pooling（空间金字塔池化）
 * 其设计**阻断了梯度下降的反向传播**，使得下层的`conv`部分无法被从后往前update。该缺陷在Fast R-CNN中被修正。
 
 ## 🖌 3、Fast R-CNN
+
+![](../../.gitbook/assets/image%20%2810%29.png)
 
 ## 🖌 4、Faster R-CNN
 

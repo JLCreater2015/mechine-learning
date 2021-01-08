@@ -56,6 +56,7 @@
 * [图像分类](computer-vision/image-classification.md)
 * [目标检测](computer-vision/object-detection/README.md)
   * [Faster-RCNN原理](computer-vision/object-detection/faster-rcnn.md)
+  * [RoI Pooling](computer-vision/object-detection/roi-pooling.md)
   * [Faster-RCNN源码解读](computer-vision/object-detection/faster-rcnn-code.md)
   * [YOLO原理](computer-vision/object-detection/yolo.md)
 * [图像分割](computer-vision/image-segmentation.md)

@@ -95,9 +95,9 @@ $$
 
 ### 🖋 4.1、`Conv layers`
 
-`Conv layers`包含了conv，pooling，relu三种层。以python版本中的`VGG16`模型中的faster\_rcnn\_test.pt的网络结构为例，如图2，Conv layers部分共有13个conv层，13个relu层，4个pooling层。这里有一个非常容易被忽略但是又无比重要的信息，在Conv layers中：
+`Conv layers`包含了`conv`，pooling，`relu`三种层。以python版本中的`VGG16`模型中的faster\_rcnn\_test.pt的网络结构为例，如图2，`Conv layers`部分共有13个`conv`层，13个`relu`层，4个pooling层。这里有一个非常容易被忽略但是又无比重要的信息，在`Conv layers`中：
 
-1. 所有的conv层都是：kernel\_size=3，pad=1，stride=1；
+1. 所有的`conv`层都是：kernel\_size=3，pad=1，stride=1；
 2. 所有的pooling层都是：kernel\_size=2，pad=1，stride=1。
 
 为何重要？在`Faster R-CNN Conv layers`中对所有的卷积都做了扩边处理（ `pad=1`，即填充一圈0），导致原图变为 $$(M+2)\times(N+2)$$ 大小，再做 $$3\times 3$$ 卷积后输出$$M\times N$$ 。正是这种设置，导致`Conv layers`中的`conv`层不改变输入和输出矩阵大小。如图：
@@ -108,5 +108,5 @@ $$
 
 ### 🖋 4.2、`Region Proposal Networks(RPN)`
 
-经典的检测方法生成检测框都非常耗时，如OpenCV adaboost使用滑动窗口+图像金字塔生成检测框；或如R-CNN使用SS\(Selective Search\)方法生成检测框。而Faster RCNN则抛弃了传统的滑动窗口和SS方法，直接使用RPN生成检测框，这也是Faster R-CNN的巨大优势，能极大提升检测框的生成速度。
+经典的检测方法生成检测框都非常耗时，如`OpenCV adaboost`使用滑动窗口+图像金字塔生成检测框；或如R-CNN使用SS\(Selective Search\)方法生成检测框。而`Faster RCNN`则抛弃了传统的滑动窗口和SS方法，直接使用`RPN`生成检测框，这也是Faster R-CNN的巨大优势，能极大提升检测框的生成速度。
 

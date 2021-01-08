@@ -29,7 +29,7 @@ Fast R-CNN方法解决了R-CNN的三个问题：
 
 图像归一化为 224×224 后直接送入网络。前五阶段是基础的`conv+relu+pooling`形式，在第五阶段结尾，输入P个候选区域（图像序号×1 + 几何位置×4，序号用于训练）。
 
-![](../../.gitbook/assets/image%20%2818%29.png)
+![](../../.gitbook/assets/image%20%2819%29.png)
 
 > 注：文中给出了大中小三种网络，此处显示出最大的一种。三种网络基本结构相似，仅`conv+relu`层数有差别，或者增删了norm层。
 
@@ -43,7 +43,7 @@ Fast R-CNN方法解决了R-CNN的三个问题：
 
 ### 🖋 3.3、测试过程
 
-![](../../.gitbook/assets/image%20%2815%29.png)
+![](../../.gitbook/assets/image%20%2816%29.png)
 
 1. 任意size图片输入CNN网络，经过若干卷积层与池化层，得到特征图；
 2. 在任意size图片上采用selective search算法提取约`2k`个建议框；
@@ -72,7 +72,7 @@ $$
 
 计算复杂度变为 $$u×t+v×t$$ 。 在实现时，相当于把一个全连接层拆分成两个，中间以一个低维数据相连。第一个全连接层不含偏置，第二个全连接层含偏置；实验表明，`SVD`分解全连接层能使`mAP`只下降0.3%的情况下提升30%的速度，同时该方法也不必再执行额外的微调操作。
 
-![](../../.gitbook/assets/image%20%2816%29.png)
+![](../../.gitbook/assets/image%20%2817%29.png)
 
 > 在GitHub的源码中，这部分似乎没有实现。
 
@@ -84,7 +84,7 @@ $$
 
 经过R-CNN和`Fast RCNN`的积淀，`Ross B. Girshick`在2016年提出了新的`Faster RCNN`，在结构上，`Faster RCNN`已经将特征抽取，proposal提取，bounding box regression和classification都整合在了一个网络中，使得综合性能有较大提高，在检测速度方面尤为明显。
 
-![Faster RCNN&#x57FA;&#x672C;&#x7ED3;&#x6784;&#xFF08;&#x6765;&#x81EA;&#x539F;&#x8BBA;&#x6587;&#xFF09;](../../.gitbook/assets/image%20%2817%29.png)
+![Faster RCNN&#x57FA;&#x672C;&#x7ED3;&#x6784;&#xFF08;&#x6765;&#x81EA;&#x539F;&#x8BBA;&#x6587;&#xFF09;](../../.gitbook/assets/image%20%2818%29.png)
 
 如图，Faster RCNN其实可以分为4个主要内容：
 
@@ -94,4 +94,19 @@ $$
 4. Classification and Bounding Box Regression。利用proposal feature maps计算proposal的类别，同时再次bounding box regression获得检测框最终的精确位置。
 
 ### 🖋 4.1、`Conv layers`
+
+`Conv layers`包含了conv，pooling，relu三种层。以python版本中的`VGG16`模型中的faster\_rcnn\_test.pt的网络结构为例，如图2，Conv layers部分共有13个conv层，13个relu层，4个pooling层。这里有一个非常容易被忽略但是又无比重要的信息，在Conv layers中：
+
+1. 所有的conv层都是：kernel\_size=3，pad=1，stride=1；
+2. 所有的pooling层都是：kernel\_size=2，pad=1，stride=1。
+
+为何重要？在`Faster R-CNN Conv layers`中对所有的卷积都做了扩边处理（ `pad=1`，即填充一圈0），导致原图变为 $$(M+2)\times(N+2)$$ 大小，再做 $$3\times 3$$ 卷积后输出$$M\times N$$ 。正是这种设置，导致`Conv layers`中的`conv`层不改变输入和输出矩阵大小。如图：
+
+![](../../.gitbook/assets/image%20%2815%29.png)
+
+类似的是，`Conv layers`中的pooling层`kernel_size=2`，`stride=2`。这样每个经过pooling层的 $$M\times N$$ 矩阵，都会变为 $$(M/2)\times (N/2)$$ 大小。综上所述，在整个`Conv layers`中，`conv`和`relu`层不改变输入输出大小，只有pooling层使输出长宽都变为输入的1/2。那么，一个$$M\times N$$大小的矩阵经过`Conv layers`固定变为$$(M/16)\times (N/16)$$ 。这样`Conv layers`生成的feature map中都可以和原图对应起来。
+
+### 🖋 4.2、`Region Proposal Networks(RPN)`
+
+经典的检测方法生成检测框都非常耗时，如OpenCV adaboost使用滑动窗口+图像金字塔生成检测框；或如R-CNN使用SS\(Selective Search\)方法生成检测框。而Faster RCNN则抛弃了传统的滑动窗口和SS方法，直接使用RPN生成检测框，这也是Faster R-CNN的巨大优势，能极大提升检测框的生成速度。
 

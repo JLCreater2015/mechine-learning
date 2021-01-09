@@ -226,7 +226,7 @@ $$
 
 其中`ceil()`表示向上取整，是因为`VGG`输出的`feature map size= 50*38`。
 
-**1、为什么Anchor坐标中有负数?**
+**1、为什么anchor坐标中有负数?**
 
 回顾anchor生成步骤：首先生成 9 个base anchor，然后通过坐标偏移在 `50*38` 大小的 $$\frac{1}{16}$$ 下采样Feature Map每个点都放上这 9 个base anchor，就形成了 $$50*38*k$$ 个anchors。至于这 9 个base anchor坐标是什么其实并不重要，不同代码实现也许不同。
 
@@ -234,7 +234,7 @@ $$
 
 ![](../../.gitbook/assets/image%20%2826%29.png)
 
-**2、Anchor到底与网络输出如何对应?**
+**2、anchor到底与网络输出如何对应?**
 
 `VGG`输出 $$50*38*512$$ 的特征，对应设置 $$50*38*k$$ 个anchors，而`RPN`输出 $$50*38*2k$$ 的分类特征矩阵和 $$50*38*4k$$ 的坐标回归特征矩阵。
 
@@ -259,7 +259,7 @@ layer {
 }
 ```
 
-可以看到其`num_output=18`，也就是经过该卷积的输出图像为 $$W\times H\times 18$$ 大小。这也就刚好对应了feature maps每一个点都有9个anchors，同时每个anchors又有可能是positive和negative，所有这些信息都保存 $$W\times H\times (9\times2)$$ 大小的矩阵。后面接`softmax`分类获得positive anchors，也就相当于初步提取了检测目标候选区域box（一般认为目标在positive anchors中）。
+可以看到其`num_output=18`，也就是经过该卷积的输出图像为 $$W\times H\times 18$$ 大小。这也就刚好对应了feature maps每一个点都有9个anchors，同时每个anchors又有可能是positive和negative，所有这些信息都保存 $$W\times H\times (9\times2)$$ 大小的矩阵。后面接`softmax`分类获得positive anchors，也就相当于初步提取了检测目标候选区域`box`（一般认为目标在positive anchors中）。
 
 那么为何要在`softmax`前后都接一个reshape layer？其实只是为了便于`softmax`分类，至于具体原因这就要从`caffe`的实现形式说起了。在`caffe`基本数据结构blob中以如下形式保存数据：
 
@@ -276,7 +276,7 @@ blob=[batch_size, channel，height，width]
 "with integer values in {0, 1, ..., C-1}.";
 ```
 
-综上所述，`RPN`网络中利用anchors和`softmax`初步提取出positive anchors作为候选区域（另外也有实现用`sigmoid`代替`softmax`，原理类似）。
+综上所述，`RPN`网络中利用`softmax`初步提取出positive anchors作为候选区域（另外也有实现用`sigmoid`代替`softmax`，原理类似）。
 
 #### ✏ 4.2.3、**对proposals进行bounding box regression**
 
@@ -301,16 +301,16 @@ $$
 [d_x(A),d_y(A),d_w(A),d_h(A)]
 $$
 
-回到图8，`VGG`输出 $$50*38*512$$ 的特征，对应设置 $$50*38*k$$ 个anchors，而`RPN`输出：
+回到图10，`VGG`输出 $$50*38*512$$ 的特征，对应设置 $$50*38*k$$ 个anchors，而`RPN`输出：
 
 1. 大小为 $$50*38*2k$$ 的`positive/negative softmax`分类特征矩阵；
 2. 大小为 $$50*38*4k$$ 的regression坐标回归特征矩阵。
 
-恰好满足 `RPN` 完成 positive/negative 分类 和bounding box regression 坐标回归**。**
+恰好满足 `RPN` 完成 positive/negative 分类 和bounding box regression**。**
 
 #### ✏ **4.2.4、**Proposal Layer
 
-Proposal Layer负责综合所有 $$[d_x(A),d_y(A),d_w(A),d_h(A)]$$ 变换量和positive anchors，计算出精准的proposals，送入后续`RoI Pooling Layer`。还是先来看看Proposal Layer的`caffe prototxt`定义：
+**Proposal Layer负责综合所有** $$[d_x(A),d_y(A),d_w(A),d_h(A)]$$ **变换量和positive anchors，计算出精准的proposals，送入后续`RoI Pooling Layer`**。还是先来看看Proposal Layer的`caffe prototxt`定义：
 
 ```python
 layer {
@@ -328,24 +328,19 @@ layer {
 }
 ```
 
-Proposal Layer有3个输入：`positive vs negative anchors`分类器结果`rpn_cls_prob_reshape`，对应的`bbox reg`的 $$[d_x(A),d_y(A),d_w(A),d_h(A)]$$ 变换量`rpn_bbox_pred`，以及`im_info`；另外还有参数`feat_stride=16`，这和图4是对应的。 首先解释`im_info`。对于一副任意大小 $$P\times Q$$ 图像，传入Faster R-CNN前首先reshape到固定 $$M\times N$$ ， $$\text{im_info}=[M, N, \text{scale_factor}]$$则保存了此次缩放的所有信息。然后经过`Conv Layers`，经过4次pooling变为 $$W \times H=(M/16)\times (N/16)$$ 大小，其中 `feature_stride=16` 则保存了该信息，用于计算anchor偏移量。
+Proposal Layer有3个输入：`positive vs negative anchors`分类器结果`rpn_cls_prob_reshape`，对应的`bbox reg`的 $$[d_x(A),d_y(A),d_w(A),d_h(A)]$$ 变换量`rpn_bbox_pred`，以及`im_info`；另外还有参数`feat_stride=16`。 首先解释`im_info`。对于一副任意大小 $$P\times Q$$ 图像，传入Faster R-CNN前首先reshape到固定 $$M\times N$$ ， $$\text{im_info}=[M, N, \text{scale_factor}]$$则保存了此次缩放的所有信息。然后经过`Conv Layers`，经过4次pooling变为 $$W \times H=(M/16)\times (N/16)$$ 大小，其中 `feature_stride=16` 则保存了该信息，用于计算anchor偏移量。
 
 Proposal Layer forward（`caffe layer`的前传函数）按照以下顺序依次处理：
 
 1. 生成anchors，利用 $$[d_x(A),d_y(A),d_w(A),d_h(A)]$$ 对所有的anchors做`bbox regression`回归（这里的anchors生成和训练时完全一致）。
 2. 按照输入的`positive softmax scores`由大到小排序anchors，提取前`pre_nms_topN(e.g. 6000)`个anchors，即提取修正位置后的positive anchors。
-3. 限定超出图像边界的positive anchors为图像边界（防止后续`roi pooling`时proposal超出图像边界）。
+3. clip超出图像边界的positive anchors（防止后续`roi pooling`时proposal超出图像边界）。
 4. 剔除非常小（`width<threshold or height<threshold`）的positive anchors。
 5. 进行`nonmaximum suppression`。
-6. Proposal Layer有3个输入：positive和negative anchors分类器结果`rpn_cls_prob_reshape`，对应的`bbox reg`的结果作为proposal输出。
 
-之后输出proposal=`!$[x1, y1, x2, y2]$`，注意，由于在第三步中将anchors映射回原图判断是否超出边界，所以这里输出的proposal是对应 `!$M\times N$` 输入图像尺度的，这点在后续网络中有用。另外我认为，严格意义上的检测应该到此就结束了，后续部分应该属于识别了。
+之后输出 $$proposal=(x_1,y_1,x_2,y_2)$$ ，注意，由于在第三步中将anchors映射回原图判断是否超出边界，所以这里输出的proposal是对应 $$M\times N$$ 输入图像尺度的，这点在后续网络中有用。另外我认为，严格意义上的检测应该到此就结束了，后续部分应该属于识别了。
 
 > `RPN`网络结构总结起来就是：生成`anchors -> softmax`分类器提取`positvie anchors -> bbox reg`回归`positive anchors -> Proposal Layer`生成`proposals`
 
 ### 🖋 4.3、[`RoI Pooling`](roi-pooling.md) 
-
-### [https://www.telesens.co/2018/03/11/object-detection-and-classification-using-r-cnns/](https://www.telesens.co/2018/03/11/object-detection-and-classification-using-r-cnns/)
-
-[https://blog.csdn.net/happyday\_d/article/details/85870358](https://blog.csdn.net/happyday_d/article/details/85870358)
 

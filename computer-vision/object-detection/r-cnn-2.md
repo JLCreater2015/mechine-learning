@@ -33,7 +33,7 @@ Fast R-CNN方法解决了R-CNN的三个问题：
 
 > 注：文中给出了大中小三种网络，此处显示出最大的一种。三种网络基本结构相似，仅`conv+relu`层数有差别，或者增删了norm层。
 
-#### ✏ 3.2.2、`RoI pooling layer`
+#### ✏ 3.2.2、[`RoI pooling layer`](roi-pooling.md) 
 
 每一个`RoI`都有一个四元组 $$(r,c,h,w)$$ 表示，其中 $$(r,c)$$ 表示左上角，而 $$(h,w)$$ 则代表高度和宽度。这一层使用最大池化（max pooling）来将`RoI`区域转化成固定大小的 $$H\times W$$ 的特征图。假设一个`RoI`的窗口大小为 $$h\times w$$ ，则转换成 $$H\times W$$ 之后，每一个网格都是一个 $$h/H * w/W$$ 大小的子网，利用最大池化将这个子网中的值映射到 $$H\times W$$ 窗口即可。Pooling对每一个特征图通道都是独立的，这是`SPP layer`的特例，即只有一层的空间金字塔。
 
@@ -90,9 +90,7 @@ $$
 * ②最后一个全连接层和`softmax`被替换成之前介绍过的两个兄弟并列层；
 * ③网络输入两组数据：一组图片和那些图片的一组`RoIs`。
 
-**3.4.1.2、**[**`roi_pool`层**](roi-pooling.md)**的训练**
-
-**3.4.1.3、分类与位置调整**
+**3.4.1.2、分类与位置调整**
 
 第五阶段的特征输入到两个并行的全连层中（称为multi-task）。
 
@@ -162,11 +160,15 @@ N张完整图片以50%概率水平翻转。 R个候选框的构成方式如下�
 1. `Conv layers`。作为一种CNN网络目标检测方法，Faster R-CNN首先使用一组基础的`conv+relu+pooling`层提取image的feature maps。该feature maps被共享用于后续`RPN`层和全连接层。
 2. `Region Proposal Networks`。`RPN`网络用于生成region proposals。该层通过`softmax`判断anchors属于positive或者negative，再利用bounding box regression修正anchors获得精确的proposals。
 3. `Roi Pooling`。该层收集输入的feature maps和proposals，综合这些信息后提取proposal feature maps，送入后续全连接层判定目标类别。
-4. Classification and Bounding Box Regression。利用proposal feature maps计算proposal的类别，同时再次bounding box regression获得检测框最终的精确位置。
+4. `Classification and Bounding Box Regression`。利用proposal feature maps计算proposal的类别，同时再次bounding box regression获得检测框最终的精确位置。
+
+![&#x56FE;9 faster\_rcnn\_test.pt&#x7F51;&#x7EDC;&#x7ED3;&#x6784; &#xFF08;pascal\_voc/VGG16/faster\_rcnn\_alt\_opt/faster\_rcnn\_test.pt&#xFF09;](../../.gitbook/assets/image%20%2827%29.png)
+
+图9展示了python版本中的`VGG16`模型中的`faster_rcnn_test.pt`的网络结构，可以清晰的看到该网络对于一副任意大小 $$P\times Q$$ 的图像，首先缩放至固定大小 $$M\times N$$ ，然后将 $$M\times N$$ 图像送入网络；而`Conv layers`中包含了 `13个conv层+13 个relu层+4个pooling层`；`RPN`网络首先经过 `3x3` 卷积，再分别生成positive anchors和对应bounding box regression偏移量，然后计算出`proposals`；而`Roi Pooling`层则利用`proposals`从`feature maps`中提取`proposal feature`送入后续全连接和`softmax`网络作`classification`（即分类proposal到底是什么object）。
 
 ### 🖋 4.1、`Conv layers`
 
-`Conv layers`包含了`conv`，pooling，`relu`三种层。以python版本中的`VGG16`模型中的faster\_rcnn\_test.pt的网络结构为例，如图2，`Conv layers`部分共有13个`conv`层，13个`relu`层，4个pooling层。这里有一个非常容易被忽略但是又无比重要的信息，在`Conv layers`中：
+`Conv layers`包含了`conv`，pooling，`relu`三种层。以python版本中的`VGG16`模型中的`faster_rcnn_test.pt`的网络结构为例，如图9，`Conv layers`部分共有13个`conv`层，13个`relu`层，4个pooling层。这里有一个非常容易被忽略但是又无比重要的信息，在`Conv layers`中：
 
 1. 所有的`conv`层都是：kernel\_size=3，pad=1，stride=1；
 2. 所有的pooling层都是：kernel\_size=2，pad=1，stride=1。
@@ -175,9 +177,175 @@ N张完整图片以50%概率水平翻转。 R个候选框的构成方式如下�
 
 ![](../../.gitbook/assets/image%20%2815%29.png)
 
-类似的是，`Conv layers`中的pooling层`kernel_size=2`，`stride=2`。这样每个经过pooling层的 $$M\times N$$ 矩阵，都会变为 $$(M/2)\times (N/2)$$ 大小。综上所述，在整个`Conv layers`中，`conv`和`relu`层不改变输入输出大小，只有pooling层使输出长宽都变为输入的1/2。那么，一个$$M\times N$$大小的矩阵经过`Conv layers`固定变为$$(M/16)\times (N/16)$$ 。这样`Conv layers`生成的feature map中都可以和原图对应起来。
+类似的是，`Conv layers`中的pooling层`kernel_size=2`，`stride=2`。这样每个经过pooling层的 $$M\times N$$ 矩阵，都会变为 $$(M/2)\times (N/2)$$ 大小。综上所述，在整个`Conv layers`中，`conv`和`relu`层不改变输入输出大小，只有pooling层使输出长宽都变为输入的 $$1/2$$ 。那么，一个$$M\times N$$大小的矩阵经过`Conv layers`固定变为$$(M/16)\times (N/16)$$ 。这样`Conv layers`生成的feature map中都可以和原图对应起来。
 
 ### 🖋 4.2、`Region Proposal Networks(RPN)`
 
-经典的检测方法生成检测框都非常耗时，如`OpenCV adaboost`使用滑动窗口+图像金字塔生成检测框；或如R-CNN使用SS\(Selective Search\)方法生成检测框。而`Faster RCNN`则抛弃了传统的滑动窗口和SS方法，直接使用`RPN`生成检测框，这也是Faster R-CNN的巨大优势，能极大提升检测框的生成速度。
+经典的检测方法生成检测框都非常耗时，如`OpenCV adaboost`使用**滑动窗口+图像金字塔**生成检测框；或如R-CNN使用`SS(Selective Search)`方法生成检测框。而`Faster RCNN`则抛弃了传统的滑动窗口和SS方法，直接使用`RPN`生成检测框，这也是Faster R-CNN的巨大优势，能极大提升检测框的生成速度。
+
+![&#x56FE;10 RPN&#x7F51;&#x7EDC;&#x7ED3;&#x6784;](../../.gitbook/assets/image%20%2824%29.png)
+
+#### ✏ 4.2.1、anchors
+
+所谓anchors，实际上就是一组由`rpn/generate_anchors.py`生成的矩形。直接运行作者demo中的`generate_anchors.py`可以得到以下输出：
+
+```text
+[[ -84.  -40.   99.   55.]
+ [-176.  -88.  191.  103.]
+ [-360. -184.  375.  199.]
+ [ -56.  -56.   71.   71.]
+ [-120. -120.  135.  135.]
+ [-248. -248.  263.  263.]
+ [ -36.  -80.   51.   95.]
+ [ -80. -168.   95.  183.]
+ [-168. -344.  183.  359.]]
+```
+
+其中每行的4个值 $$(x_1,y_1,x_2,y_2)$$ 表矩形左上和右下角点坐标。9个矩形共有3种形状，长宽比为大约为 $$width:height\in \{1:1,1:2,2:1\}$$ 三种，如图11。实际上通过anchors就引入了检测中常用到的多尺度方法。
+
+![&#x56FE;11 anchors](../../.gitbook/assets/image%20%2825%29.png)
+
+那么这9个anchors是做什么的呢？借用Faster R-CNN论文中的原图，如图12，遍历`Conv layers`计算获得的feature maps，为每一个点都配备这9种anchors作为初始的检测框。这样做获得检测框很不准确，不用担心，后面还有2次bounding box regression可以修正检测框位置。
+
+![&#x56FE;12](../../.gitbook/assets/image%20%2822%29.png)
+
+解释一下上面这张图的数字。
+
+1. 在原文中使用的是`ZF model`中，其`Conv Layers`中最后的`conv5`层`num_output=256`，对应生成256张特征图，所以相当于feature map每个点都是256-dimensions；
+2. 在`conv5`之后，做了`rpn_conv/3x3`卷积且`num_output=256`，相当于每个点又融合了周围 $$3\times 3$$ 的空间信息，同时`256-d`不变（如图11中的红框）；
+3. 假设在`conv5 feature map`中每个点上有k个anchor（默认k=9），而每个`anhcor`要分positive和negative，所以每个点由`256-d feature`转化为`cls=2k scores`；而每个anchor都有`(x, y, w, h)`对应4个偏移量，所以`reg=4k coordinates`；
+4. 补充一点，全部anchors拿去训练太多了，训练程序会在合适的anchors中随机选取128个`postive anchors`和128个`negative anchors`进行训练。
+
+**其实`RPN`最终就是在原图尺度上，设置了密密麻麻的候选Anchor。然后用CNN去判断哪些Anchor是里面有目标的positive anchor，哪些是没目标的negative anchor。所以，仅仅是个二分类而已！**
+
+那么Anchor一共有多少个？原图`800x600`，`VGG`下采样16倍，feature map每个点设置9个Anchor，所以：
+
+$$
+ceil(800/16)\times ceil(600/16) \times 9 = 50 \times 38 \times 9 = 17100
+$$
+
+其中`ceil()`表示向上取整，是因为`VGG`输出的`feature map size= 50*38`。
+
+**1、为什么Anchor坐标中有负数?**
+
+回顾anchor生成步骤：首先生成 9 个base anchor，然后通过坐标偏移在 `50*38` 大小的 $$\frac{1}{16}$$ 下采样Feature Map每个点都放上这 9 个base anchor，就形成了 $$50*38*k$$ 个anchors。至于这 9 个base anchor坐标是什么其实并不重要，不同代码实现也许不同。
+
+显然这里面有一部分边缘anchors会超出图像边界，而真实中不会有超出图像的目标，所以会有clip anchor步骤。
+
+![](../../.gitbook/assets/image%20%2826%29.png)
+
+**2、Anchor到底与网络输出如何对应?**
+
+`VGG`输出 $$50*38*512$$ 的特征，对应设置 $$50*38*k$$ 个anchors，而`RPN`输出 $$50*38*2k$$ 的分类特征矩阵和 $$50*38*4k$$ 的坐标回归特征矩阵。
+
+![](../../.gitbook/assets/image%20%2823%29.png)
+
+其实在实现过程中，每个点的 `2k` 个分类特征与 `4k` 回归特征，与 `k` 个anchor逐个对应即可，这实际是一种“人为设置的逻辑映射”。当然，也可以不这样设置，但是无论如何都需要保证在训练和测试过程中映射方式必须一致。
+
+#### ✏ 4.2.2、**`softmax`判定positive与negative**
+
+一副 $$M\times N$$ 大小的矩阵送入Faster R**-**CNN网络后，到`RPN`网络变为 $$(M/16)\times (N/16)$$ ，不妨设 $$W=M/16$$ ， $$H=N/16$$ 。在进入reshape与`softmax`之前，先做了 $$1\times 1$$ 卷积，该$$1\times 1$$ 卷积的`caffe prototxt`定义如下：
+
+```python
+layer {
+  name: "rpn_cls_score"
+  type: "Convolution"
+  bottom: "rpn/output"
+  top: "rpn_cls_score"
+  convolution_param {
+    num_output: 18   # 2(positive/negative) * 9(anchors)
+    kernel_size: 1 pad: 0 stride: 1
+  }
+}
+```
+
+可以看到其`num_output=18`，也就是经过该卷积的输出图像为 $$W\times H\times 18$$ 大小。这也就刚好对应了feature maps每一个点都有9个anchors，同时每个anchors又有可能是positive和negative，所有这些信息都保存 $$W\times H\times (9\times2)$$ 大小的矩阵。后面接`softmax`分类获得positive anchors，也就相当于初步提取了检测目标候选区域box（一般认为目标在positive anchors中）。
+
+那么为何要在`softmax`前后都接一个reshape layer？其实只是为了便于`softmax`分类，至于具体原因这就要从`caffe`的实现形式说起了。在`caffe`基本数据结构blob中以如下形式保存数据：
+
+```text
+blob=[batch_size, channel，height，width]
+```
+
+对应至上面的保存`positive/negative anchors`的矩阵，其在`caffe blob`中的存储形式为 $$ [1, 2\times 9, H, W]$$ 。而在`softmax`分类时需要进行`positive/negative`二分类，所以reshape layer会将其变为 $$[1, 2, 9\times H, W]$$ 大小，即单独“腾空”出来一个维度以便`softmax`分类，之后再reshape回复原状。贴一段`caffe softmax_loss_layer.cpp`的reshape函数的解释，非常精辟：
+
+```text
+"Number of labels must match number of predictions; "
+"e.g., if softmax axis == 1 and prediction shape is (N, C, H, W), "
+"label count (number of labels) must be N*H*W, "
+"with integer values in {0, 1, ..., C-1}.";
+```
+
+综上所述，`RPN`网络中利用anchors和`softmax`初步提取出positive anchors作为候选区域（另外也有实现用`sigmoid`代替`softmax`，原理类似）。
+
+#### ✏ 4.2.3、**对proposals进行bounding box regression**
+
+这里的$$1\times 1$$ 卷积的`caffe prototxt`定义：
+
+```python
+layer {
+  name: "rpn_bbox_pred"
+  type: "Convolution"
+  bottom: "rpn/output"
+  top: "rpn_bbox_pred"
+  convolution_param {
+    num_output: 36   # 4 * 9(anchors)
+    kernel_size: 1 pad: 0 stride: 1
+  }
+}
+```
+
+可以看到其 `num_output=36`，即经过该卷积输出图像为 $$W\times H\times 36$$ ，在`caffe blob`存储为 $$[1, 4\times 9, H, W]$$ ，这里相当于feature maps每个点都有 9 个anchors，每个anchors又都有 4 个用于回归的变换量：
+
+$$
+[d_x(A),d_y(A),d_w(A),d_h(A)]
+$$
+
+回到图8，`VGG`输出 $$50*38*512$$ 的特征，对应设置 $$50*38*k$$ 个anchors，而`RPN`输出：
+
+1. 大小为 $$50*38*2k$$ 的`positive/negative softmax`分类特征矩阵；
+2. 大小为 $$50*38*4k$$ 的regression坐标回归特征矩阵。
+
+恰好满足 `RPN` 完成 positive/negative 分类 和bounding box regression 坐标回归**。**
+
+#### ✏ **4.2.4、**Proposal Layer
+
+Proposal Layer负责综合所有 $$[d_x(A),d_y(A),d_w(A),d_h(A)]$$ 变换量和positive anchors，计算出精准的proposals，送入后续`RoI Pooling Layer`。还是先来看看Proposal Layer的`caffe prototxt`定义：
+
+```python
+layer {
+  name: 'proposal'
+  type: 'Python'
+  bottom: 'rpn_cls_prob_reshape'
+  bottom: 'rpn_bbox_pred'
+  bottom: 'im_info'
+  top: 'rois'
+  python_param {
+    module: 'rpn.proposal_layer'
+    layer: 'ProposalLayer'
+    param_str: "'feat_stride': 16"
+  }
+}
+```
+
+Proposal Layer有3个输入：`positive vs negative anchors`分类器结果`rpn_cls_prob_reshape`，对应的`bbox reg`的 $$[d_x(A),d_y(A),d_w(A),d_h(A)]$$ 变换量`rpn_bbox_pred`，以及`im_info`；另外还有参数`feat_stride=16`，这和图4是对应的。 首先解释`im_info`。对于一副任意大小 $$P\times Q$$ 图像，传入Faster R-CNN前首先reshape到固定 $$M\times N$$ ， $$\text{im_info}=[M, N, \text{scale_factor}]$$则保存了此次缩放的所有信息。然后经过`Conv Layers`，经过4次pooling变为 $$W \times H=(M/16)\times (N/16)$$ 大小，其中 `feature_stride=16` 则保存了该信息，用于计算anchor偏移量。
+
+Proposal Layer forward（`caffe layer`的前传函数）按照以下顺序依次处理：
+
+1. 生成anchors，利用 $$[d_x(A),d_y(A),d_w(A),d_h(A)]$$ 对所有的anchors做`bbox regression`回归（这里的anchors生成和训练时完全一致）。
+2. 按照输入的`positive softmax scores`由大到小排序anchors，提取前`pre_nms_topN(e.g. 6000)`个anchors，即提取修正位置后的positive anchors。
+3. 限定超出图像边界的positive anchors为图像边界（防止后续`roi pooling`时proposal超出图像边界）。
+4. 剔除非常小（`width<threshold or height<threshold`）的positive anchors。
+5. 进行`nonmaximum suppression`。
+6. Proposal Layer有3个输入：positive和negative anchors分类器结果`rpn_cls_prob_reshape`，对应的`bbox reg`的结果作为proposal输出。
+
+之后输出proposal=`!$[x1, y1, x2, y2]$`，注意，由于在第三步中将anchors映射回原图判断是否超出边界，所以这里输出的proposal是对应 `!$M\times N$` 输入图像尺度的，这点在后续网络中有用。另外我认为，严格意义上的检测应该到此就结束了，后续部分应该属于识别了。
+
+> `RPN`网络结构总结起来就是：生成`anchors -> softmax`分类器提取`positvie anchors -> bbox reg`回归`positive anchors -> Proposal Layer`生成`proposals`
+
+### 🖋 4.3、[`RoI Pooling`](roi-pooling.md) 
+
+### [https://www.telesens.co/2018/03/11/object-detection-and-classification-using-r-cnns/](https://www.telesens.co/2018/03/11/object-detection-and-classification-using-r-cnns/)
+
+[https://blog.csdn.net/happyday\_d/article/details/85870358](https://blog.csdn.net/happyday_d/article/details/85870358)
 

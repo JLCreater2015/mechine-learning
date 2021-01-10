@@ -354,10 +354,14 @@ Proposal Layer forward（`caffe layer`的前传函数）按照以下顺序依次
 
 ### 🖋 4.4、`RPN Multi-task loss`
 
-![](../../.gitbook/assets/image%20%2831%29.png)
+整个`RPN`网络使用的Loss如下：
+
+$$
+L({p_i},{t_i}) = \frac{1}{N_{cls}}\sum_i L_{cls}(p_i,p_i^*) + \lambda \frac{1}{N_{reg}}\sum_i p_i^* L_{reg}(t_i,t_i^*)
+$$
 
 * $$p_i$$ 表示第 $$i$$ 个anchor 预测为真实标签的概率；
-* $$p_i^*$$ 当为正样本时为 1，当为负样本时为0；
+* $$p_i^*$$ 当为正样本时为 1，当为负样本时为0（即当第i个anchor与GT间`IoU>0.7`，认为是该anchor是positive， $$p_i^* = 1$$ ；反之`IoU<0.3`时，认为是该anchor是negative， $$p_i^* = 0$$ ；至于那些`0.3<IoU<0.7`的anchor则不参与训练）；
 * $$t_i$$ 表示预测第 $$i$$ 个 anchor的边界框回归参数；
 * $$t_i^*$$ 表示第 $$i$$ 个 anchor 对应的 `GT Box` 的边界框回归参数；
 * $$N_{cls}$$ 表示一个 `mini-batch` 中的所有样本数量256；

@@ -47,8 +47,8 @@ Fast R-CNN方法解决了R-CNN的三个问题：
 
 1. 任意size图片输入CNN网络，经过若干卷积层与池化层，得到特征图；
 2. 在任意size图片上采用selective search算法提取约`2k`个建议框；
-3. 根据原图中建议框到特征图映射关系，在特征图中找到每个建议框对应的特征框【深度和特征图一致】，并在`RoI`池化层中将每个特征框池化到 $$H\times W$$ 【`VGG-16`网络是7×7】的size；
-4. 固定 $$H\times W$$【`VGG-16`网络是7×7】大小的特征框经过全连接层得到固定大小的特征向量；
+3. 根据原图中建议框到特征图映射关系，在特征图中找到每个建议框对应的特征框【深度和特征图一致】，并在`RoI`池化层中将每个特征框池化到 $$H\times W$$ 【`VGG-16`网络是`7×7`】的size；
+4. 固定 $$H\times W$$【`VGG-16`网络是`7×7`】大小的特征框经过全连接层得到固定大小的特征向量；
 5. 第4步所得特征向量经由各自的全连接层【由`SVD`分解实现】，分别得到两个输出向量：一个是`softmax`的分类得分，一个是Bounding-box窗口回归；
 6. 利用窗口得分分别对每一类物体进行非极大值抑制剔除重叠建议框，最终得到每个类别中回归修正后的得分最高的窗口。
 
@@ -58,7 +58,7 @@ Fast R-CNN方法解决了R-CNN的三个问题：
 
 图像分类任务中，用于卷积层计算的时间比用于全连接层计算的时间多，而在目标检测任务中，selective search算法提取的建议框比较多，几乎有一半的前向计算时间被花费于全连接层，就Fast R-CNN而言，`RoI`池化层后的全连接层需要进行约 `2k` 次【每个建议框都要计算】，因此在Fast R-CNN中可以采用`SVD`分解加速全连接层计算；
 
-分类和位置调整都是通过全连接层实现的，设前一级数据为 x 后一级为 y，全连接层参数为W，尺寸 $$u\times v$$ 。一次前向传播（forward）即为 $$y=Wx$$ ，计算复杂度为$$u\times v$$ 。 将W进行`SVD`分解，并用前 $$t$$ 个特征值近似：
+分类和位置调整都是通过全连接层实现的，设前一级数据为 x 后一级为 y，全连接层参数为 $$W$$ ，尺寸 $$u\times v$$ 。一次前向传播（forward）即为 $$y=Wx$$ ，计算复杂度为$$u\times v$$ 。 将W进行`SVD`分解，并用前 $$t$$ 个特征值近似：
 
 $$
 W=U\sum V^T \approx U(:,1:t)⋅\sum (1:t,1:t)⋅V(:,1:t)^T
@@ -98,36 +98,6 @@ $$
 
 > `cls_score`层用于分类，输出 $$K+1$$ 维数组p，表示属于 K 类和背景的概率。 `bbox_prdict`层用于调整候选区域位置，输出 $$4\times K$$ 维数组 t，表示分别属于 K 类时，应该平移缩放的参数。
 
-**代价函数** 
-
-`loss_cls`层评估分类代价。由真实分类 $$u$$ 对应的概率决定：
-
-$$
-L_{cls} = −log\ p_u
-$$
-
-`loss_bbox`评估检测框定位代价。比较真实分类对应的预测参数 $$t^u$$ 和真实平移缩放参数为 $$v$$ 的差别：
-
-$$
-L_{loc}=Σ^4_{i=1} g(t^u_i−v_i)
-$$
-
-$$g$$ 为`Smooth L1`误差，对outlier不敏感：
-
-$$
-g(x)= \begin{cases}0.5x^2 & |x|<1 \\
-|x|−0.5 & otherwise \end{cases}
-$$
-
-总代价为两者加权和，如果分类为背景则不考虑定位代价：
-
-$$
-L= \begin{cases} L_{cls}+λL_{loc} & u\text{为前景} \\
-L_{cls} & u\text{为背景} \end{cases}
-$$
-
-> 源码中`bbox_loss_weights`用于标记每一个`bbox`是否属于某一个类。
-
 #### ✏ 3.4.2、特定样本下的微调
 
 使用BP算法训练网络是Fast R-CNN的重要能力，`SPP-net`不能微调`SPP`层之前的层，主要是因为当每一个训练样本来自于不同的图片时，经过`SPP`层的BP算法是很低效的（感受野太大）。
@@ -149,6 +119,44 @@ N张完整图片以50%概率水平翻转。 R个候选框的构成方式如下�
 | 前景 | 25% | 与某个真值重叠在 \[0.5,1\] 的候选框 |
 | 背景 | 75% | 与真值重叠的最大值在 \[0.1,0.5\) 的候选框 |
 
+#### \*\*\*\*✏ 3.4.3、**代价函数** **（Multi-task loss）**
+
+![](../../.gitbook/assets/image%20%2834%29.png)
+
+* $$p$$ 是分类器预测的 ****`softmax` 概率分布 $$p=(p_0,\ldots,p_k)$$ ；
+* $$u$$ 对应目标真实类别标签；
+* $$t^u$$ 对应边界框回归器预测的对应类别 $$u$$ 的回归参数 $$(t_x^u, t_y^u, t_w^u, t_h^u)$$ ；
+* $$v$$ 对应真实目标的边界框回归参数 $$(v_x, v_y, v_w, v_h)$$ ；
+* $$[u\ge 1]$$ 是艾弗森括号。
+
+`loss_cls`层评估分类代价。由真实分类 $$u$$ 对应的概率决定：
+
+$$
+L_{cls} = −log\ p_u
+$$
+
+`loss_bbox`评估检测框定位代价。比较真实分类对应的预测参数 $$t^u$$ 和真实平移缩放参数为 $$v$$ 的差别：
+
+$$
+L_{loc}=\sum\limits_{i\in\{x,y,w,h\}} smooth_{L_1}(t^u_i−v_i)
+$$
+
+$$smooth_{L_1}$$ 为`Smooth L1`误差，对outlier不敏感：
+
+$$
+smooth_{L_1}(x)= \begin{cases}0.5x^2 & |x|<1 \\
+|x|−0.5 & otherwise \end{cases}
+$$
+
+总代价为两者加权和，如果分类为背景则不考虑定位代价：
+
+$$
+L= \begin{cases} L_{cls}+λL_{loc} & u\text{为前景} \\
+L_{cls} & u\text{为背景} \end{cases}
+$$
+
+> 源码中`bbox_loss_weights`用于标记每一个`bbox`是否属于某一个类。
+
 ## 🖌 4、Faster R-CNN
 
 经过R-CNN和Fast R-CNN的积淀，`Ross B. Girshick`在2016年提出了新的Faster R-CNN，在结构上，Faster R-CNN已经将特征抽取，proposal提取，bounding box regression和classification都整合在了一个网络中，使得综合性能有较大提高，在检测速度方面尤为明显。
@@ -158,9 +166,9 @@ N张完整图片以50%概率水平翻转。 R个候选框的构成方式如下�
 如图，Faster R-CNN其实可以分为4个主要内容：
 
 1. `Conv layers`。作为一种CNN网络目标检测方法，Faster R-CNN首先使用一组基础的`conv+relu+pooling`层提取image的feature maps。该feature maps被共享用于后续`RPN`层和全连接层。
-2. `Region Proposal Networks`。`RPN`网络用于生成region proposals。该层通过`softmax`判断anchors属于positive或者negative，再利用bounding box regression修正anchors获得精确的proposals。
+2. `Region Proposal Networks`。`RPN`网络用于生成region proposals。该层通过`softmax`判断anchors属于positive或者negative，再利用bounding box regression修正anchors获得精确的proposals。（anchor与proposal的区别）
 3. `Roi Pooling`。该层收集输入的feature maps和proposals，综合这些信息后提取proposal feature maps，送入后续全连接层判定目标类别。
-4. `Classification and Bounding Box Regression`。利用proposal feature maps计算proposal的类别，同时再次bounding box regression获得检测框最终的精确位置。
+4. `Classification and Bounding Box Regression`。利用proposal feature maps计算proposal的类别，**同时再次bounding box regression获得检测框最终的精确位置**。
 
 ![&#x56FE;9 faster\_rcnn\_test.pt&#x7F51;&#x7EDC;&#x7ED3;&#x6784; &#xFF08;pascal\_voc/VGG16/faster\_rcnn\_alt\_opt/faster\_rcnn\_test.pt&#xFF09;](../../.gitbook/assets/image%20%2827%29.png)
 
@@ -205,7 +213,7 @@ N张完整图片以50%概率水平翻转。 R个候选框的构成方式如下�
 
 ![&#x56FE;11 anchors](../../.gitbook/assets/image%20%2825%29.png)
 
-那么这9个anchors是做什么的呢？借用Faster R-CNN论文中的原图，如图12，遍历`Conv layers`计算获得的feature maps，为每一个点都配备这9种anchors作为初始的检测框。这样做获得检测框很不准确，不用担心，后面还有2次bounding box regression可以修正检测框位置。
+那么这9个anchors是做什么的呢？借用Faster R-CNN论文中的原图，如图12，遍历`Conv layers`计算获得的feature maps，为每一个点都配备这9种anchors作为初始的检测框。这样做获得检测框很不准确，不用担心，**后面还有2次bounding box regression可以修正检测框位置**。
 
 ![&#x56FE;12](../../.gitbook/assets/image%20%2822%29.png)
 
@@ -216,15 +224,15 @@ N张完整图片以50%概率水平翻转。 R个候选框的构成方式如下�
 3. 假设在`conv5 feature map`中每个点上有k个anchor（默认k=9），而每个`anhcor`要分positive和negative，所以每个点由`256-d feature`转化为`cls=2k scores`；而每个anchor都有`(x, y, w, h)`对应4个偏移量，所以`reg=4k coordinates`；
 4. 补充一点，全部anchors拿去训练太多了，训练程序会在合适的anchors中随机选取128个`postive anchors`和128个`negative anchors`进行训练。
 
-**其实`RPN`最终就是在原图尺度上，设置了密密麻麻的候选Anchor。然后用CNN去判断哪些Anchor是里面有目标的positive anchor，哪些是没目标的negative anchor。所以，仅仅是个二分类而已！**
+**其实`RPN`最终就是在原图尺度上，设置了密密麻麻的候选anchor。然后用CNN去判断哪些anchor是里面有目标的positive anchor，哪些是没目标的negative anchor。所以，仅仅是个二分类而已！**
 
-那么Anchor一共有多少个？原图`800x600`，`VGG`下采样16倍，feature map每个点设置9个Anchor，所以：
+那么anchor一共有多少个？原图`800x600`，`VGG`下采样16倍，feature map每个点设置9个Anchor，所以：
 
 $$
 ceil(800/16)\times ceil(600/16) \times 9 = 50 \times 38 \times 9 = 17100
 $$
 
-其中`ceil()`表示向上取整，是因为`VGG`输出的`feature map size= 50*38`。
+其中`ceil()`表示向上取整，是因为`VGG`输出的`feature map size= 50*38`。**忽略跨越边界的anchor以后，剩下约`6k`个。对于`RPN`生成的候选框之间存在大量重叠，基于候选框的`cls`得分，采用非极大值抑制，`IoU`设为0.7，这样每张图片只剩下`2k`个候选框**。
 
 **1、为什么anchor坐标中有负数?**
 
@@ -264,7 +272,7 @@ layer {
 那么为何要在`softmax`前后都接一个reshape layer？其实只是为了便于`softmax`分类，至于具体原因这就要从`caffe`的实现形式说起了。在`caffe`基本数据结构blob中以如下形式保存数据：
 
 ```text
-blob=[batch_size, channel，height，width]
+blob=[batch_size, channel, height, width]
 ```
 
 对应至上面的保存`positive/negative anchors`的矩阵，其在`caffe blob`中的存储形式为 $$ [1, 2\times 9, H, W]$$ 。而在`softmax`分类时需要进行`positive/negative`二分类，所以reshape layer会将其变为 $$[1, 2, 9\times H, W]$$ 大小，即单独“腾空”出来一个维度以便`softmax`分类，之后再reshape回复原状。贴一段`caffe softmax_loss_layer.cpp`的reshape函数的解释，非常精辟：
@@ -343,4 +351,42 @@ Proposal Layer forward（`caffe layer`的前传函数）按照以下顺序依次
 > `RPN`网络结构总结起来就是：生成`anchors -> softmax`分类器提取`positvie anchors -> bbox reg`回归`positive anchors -> Proposal Layer`生成`proposals`
 
 ### 🖋 4.3、[`RoI Pooling`](roi-pooling.md) 
+
+### 🖋 4.4、`RPN Multi-task loss`
+
+![](../../.gitbook/assets/image%20%2831%29.png)
+
+* $$p_i$$ 表示第 $$i$$ 个anchor 预测为真实标签的概率；
+* $$p_i^*$$ 当为正样本时为 1，当为负样本时为0；
+* $$t_i$$ 表示预测第 $$i$$ 个 anchor的边界框回归参数；
+* $$t_i^*$$ 表示第 $$i$$ 个 anchor 对应的 `GT Box` 的边界框回归参数；
+* $$N_{cls}$$ 表示一个 `mini-batch` 中的所有样本数量256；
+* $$N_{reg}$$ 表示 anchor 位置的个数 （不是anchor 个数） 约2400.
+
+可以化简： $$\lambda$$ 在论文中取值为10，则$$\frac{1}{N_{cls}} \approx \lambda\frac{1}{N_{reg}}$$ ，PyTorch官方实现就是这种方法。
+
+#### 1、分类损失有两种实现方式
+
+![](../../.gitbook/assets/image%20%2833%29.png)
+
+![](../../.gitbook/assets/image%20%2828%29.png)
+
+#### 2、边界框回归损失
+
+![](../../.gitbook/assets/image%20%2832%29.png)
+
+### 🖋 4.5、Faster R-CNN训练
+
+#### ✏ 4.5.1、分部训练（原论文）
+
+原论文中采用分别训练`RPN`以及Fast R-CNN的方法：
+
+1. 利用`ImageNet`预训练分类模型初始化前置卷积网络层参数，并 开始单独训练`RPN`网络参数； 
+2. 固定`RPN`网络独有的卷积层以及全连接层参数，再利用 `ImageNet`预训练分类模型初始化前置卷积网络参数，并利用`RPN` 网络生成的目标建议框去训练Fast R-CNN网络参数。 
+3. 固定利用Fast R-CNN训练好的前置卷积网络层参数，去微调`RPN` 网络独有的卷积层以及全连接层参数。 
+4. 同样保持固定前置卷积网络层参数，去微调Fast R-CNN网络的全 连接层参数。最后`RPN`网络与Fast R-CNN网络共享前置卷积网络层 参数，构成一个统一网络。
+
+#### ✏ 4.5.2、联合训练
+
+直接采用`RPN Loss+ Fast R-CNN Loss`的联合训练方法。
 

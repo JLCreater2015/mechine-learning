@@ -33,7 +33,7 @@ layer {
 
  **`RoI Pooling = crop feature + resize feature`**
 
-### 🖋 执行步骤
+### 🖋 1.1、执行步骤
 
 **以输出目标特征图尺寸大小为** ![\[&#x516C;&#x5F0F;\]](https://www.zhihu.com/equation?tex=2%5Ctimes2%5Ctimes512) **进行说明**
 
@@ -57,7 +57,7 @@ layer {
 
 ![](../../.gitbook/assets/image%20%2833%29.png)
 
-### 🖋 缺点
+### 🖋 1.2、缺点
 
 每一次量化操作都会对应着轻微的区域特征错位（misaligned）， 这些量化操作在`RoI`和提取到的特征之间引入了偏差。这些量化可能不会影响对分类任务，但它对预测像素精度掩模有很大的负面影响。
 
@@ -83,7 +83,7 @@ layer {
 
 ![](../../.gitbook/assets/image%20%2836%29.png)
 
-### 🖋 2.2、双线性插值`RoI Align`
+### 🖋 2.2、双线性插值
 
 双线性插值（`bilinear interpolation`），又称为双线性内插。在数学上，双线性插值是有两个变量的插值函数的线性插值扩展，其核心思想是在两个方向分别进行一次线性插值。在数字图像和音频处理领域都有应用。在图像处理中，双线性插值法**考虑围绕未知像素的计算位置的** ![\[&#x516C;&#x5F0F;\]](https://www.zhihu.com/equation?tex=2%5Ctimes2) **最近邻域的已知像素**。然后对这4个像素进行加权平均，以得出其最终的内插值。
 
@@ -110,37 +110,57 @@ $$
 
 $$
 \begin{align}
-\phi(x,y)&=\frac{y-y_1}{y_2-y_1}\phi(x,y_2)+\frac{y-y_2}{y_1-y_2}\phi(x,y_1) \\ &= \frac{1}{(y_2-y_1)(x_2-x_1)}((x-x_1)(y-y_1)\phi(x_2,y_2)+(x-x_2)(y-y_1)\phi(x_1,y_2)+)
+\phi(x,y)&=\frac{y-y_1}{y_2-y_1}\phi(x,y_2)+\frac{y-y_2}{y_1-y_2}\phi(x,y_1) \\ &= \frac{1}{(y_2-y_1)(x_2-x_1)}((x-x_1)(y-y_1)\phi(x_2,y_2)-(x-x_2)(y-y_1)\phi(x_1,y_2)-\\& (x-x_1)(y-y_2)\phi(x_2,y_1)+(x-x_2)(y-y_2)\phi(x_1,y_1)) \tag{4}
 \end{align}
 $$
 
- 由于 ![\[&#x516C;&#x5F0F;\]](https://www.zhihu.com/equation?tex=Q_%7B11%7D) , ![\[&#x516C;&#x5F0F;\]](https://www.zhihu.com/equation?tex=Q_%7B12%7D) , ![\[&#x516C;&#x5F0F;\]](https://www.zhihu.com/equation?tex=Q_%7B21%7D) , ![\[&#x516C;&#x5F0F;\]](https://www.zhihu.com/equation?tex=Q_%7B22%7D) 分别为相邻像素的中间位置坐标，如下图所示：
+ 由于 $$Q_{11}, Q_{12}, Q_{21}, Q_{22}$$ 分别为相邻像素的中间位置坐标，如下图所示：
 
 ![](../../.gitbook/assets/image%20%2834%29.png)
 
 
 
-容易得到 ![\[&#x516C;&#x5F0F;\]](https://www.zhihu.com/equation?tex=y_2+-+y_1%3D1) ， ![\[&#x516C;&#x5F0F;\]](https://www.zhihu.com/equation?tex=x_2-x_1%3D1) ，因此双线性插值公式 ![\[&#x516C;&#x5F0F;\]](https://www.zhihu.com/equation?tex=4) 可以进一步简化为
+容易得到 $$y_2-y1=1$$ ， $$x_2-x_1=1$$ ，因此双线性插值公式 （4） 可以进一步简化为
 
-![\[&#x516C;&#x5F0F;\]](https://www.zhihu.com/equation?tex=%5Cbegin%7Balign%7D+%5Cphi%28x%2Cy%29+%3D%26%28x-x_1%29%28y-y_1%29%5Cphi%28x_2%2C+y_2%29+%2B%28x-x_2%29%28y-y_1%29%5Cphi%28x_1%2C+y_2%29+%5C%5C%26%2B%28x-x_1%29%28y-y_2%29%5Cphi%28x_2%2C+y_1%29+%2B+%28x-x_1%29%28y-y_1%29%5Cphi%28x_2%2C+y_2%29+%5C%5C+%5Ctag%7B5%7D+%5Cend%7Balign%7D)
+$$
+\begin{align}
+\phi(x,y)&= (x-x_1)(y-y_1)\phi(x_2,y_2)-(x-x_2)(y-y_1)\phi(x_1,y_2)-\\& (x-x_1)(y-y_2)\phi(x_2,y_1)+(x-x_2)(y-y_2)\phi(x_1,y_1))\tag{5}
+\end{align}
+$$
 
 同理容易得到
 
-![\[&#x516C;&#x5F0F;\]](https://www.zhihu.com/equation?tex=%28x-x_1%29%28y-y_1%29+%2B%28x-x_2%29%28y-y_1%29+%2B%28x-x_1%29%28y-y_2%29%2B+%28x-x_1%29%28y-y_1%29+%3D+1+%5Ctag%7B6%7D)
+$$
+\begin{align}
+(x-x_1)(y-y_1)-(x-x_2)(y-y_1)-& (x-x_1)(y-y_2)+(x-x_2)(y-y_2)=1\tag{5}
+\end{align}
+$$
 
-公式 ![\[&#x516C;&#x5F0F;\]](https://www.zhihu.com/equation?tex=5) 也可以进一步表示为
+公式 （5） 也可以进一步表示为
 
-![\[&#x516C;&#x5F0F;\]](https://www.zhihu.com/equation?tex=+%5Cphi%28x%2Cy%29+%3D+%5Csum_%7Bi%2Cj%3D1%7D%5E2%7B%5Cphi%28x_i%2C+y_j%29max%280%2C+1-%7Cx-x_i%7C%29max%280%2C+1-%7Cy-x_i%7C%29%7D+++%5Ctag%7B7%7D+)
+$$
+\phi(x,y)=\sum\limits_{i,j=1}^2\phi(x_i,y_i)max(0,1-|x-x_i|)max(0,1-|y-y_i|) \tag{7}
+$$
 
 * 公式物理意义
 
 ![](../../.gitbook/assets/image%20%2838%29.png)
 
-通过公式 ![\[&#x516C;&#x5F0F;\]](https://www.zhihu.com/equation?tex=5) 可以看出， 双线性插值本质上是目标像素值相邻四个像素的像素值加权和值。
+通过公式 （5） 可以看出， 双线性插值本质上是目标像素值相邻四个像素的像素值加权和值。
 
-对于第一项 ![\[&#x516C;&#x5F0F;\]](https://www.zhihu.com/equation?tex=%28x-x_1%29%28y-y_1%29%5Cphi%28x_2%2C+y_2%29) 表示右上角像素 ![\[&#x516C;&#x5F0F;\]](https://www.zhihu.com/equation?tex=%28x_2%2C+y_2%29) 的像素值加权后的结果，其对应的权重公式 ![\[&#x516C;&#x5F0F;\]](https://www.zhihu.com/equation?tex=%28x-x_1%29%28y-y_1%29) ，可以看出第一项权重本质上是目标像素 ![\[&#x516C;&#x5F0F;\]](https://www.zhihu.com/equation?tex=%28x_2%2Cy_2%29) 对应的对角像素![\[&#x516C;&#x5F0F;\]](https://www.zhihu.com/equation?tex=%28x_1%2C+y_1%29)所构成的矩形区域的面积大小，如上图紫色区域。同理其它三项也满足同样的规律。
+对于第一项 $$(x-x_1)(y-y_1)\phi(x_2,y_2)$$ 表示右上角像素 $$(x_2,y_2)$$ 的像素值加权后的结果，其对应的权重公式 $$(x-x_1)(y-y_1)$$ ，可以看出第一项权重本质上是目标像素  $$(x_2,y_2)$$  对应的对角像素 $$(x_1,y_1)$$ 所构成的矩形区域的面积大小，如上图紫色区域。同理其它三项也满足同样的规律。
 
 **当目标元素与某个相邻元素的距离越近，目标元素元素与该相邻像素的对角像素组成的矩形框面积大小就越大，该相邻像素对应的权重值就越大。**
 
 综上可以得到， **双线性插值本质上是目标像素所相邻的四个像素， 分别以像素对应的对角像素与目标像素的构成的矩形区域为权重，像素大小为值的加权和**。
+
+## 🖌 3、`RoI Wrap`
+
+**`RoI Warp — meet me in the middle`**
+
+第三种池化数据的方法是通过 [Instance-aware semantic segmentation via multi-task network cascades](https://arxiv.org/pdf/1512.04412.pdf) 中引入的，它被称为**`RoI Warp`**。`RoI Warp`的想法和`RoI Align`差不多，唯一的区别是**`RoI Warp`是将`RoI`量化到feature map上**。
+
+## 🖌 4、**`PSROI-Pooling：Position Sensitive ROI-Pooling`**
+
+`Position Sensitive ROI Pooling`（位置敏感的候选区域池化）是检测框架`R-FCN`的主要创新点。其主要思想是在特征聚集时人工引入位置信息，从而有效改善较深的神经网络对物体位置信息的敏感程度。同时，R-FCN的大部分操作都直接对整张图片进行，这也大大优化了网络的运行速度。
 

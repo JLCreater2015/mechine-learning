@@ -85,4 +85,5 @@
 * YOLO代码解析：[https://zhuanlan.zhihu.com/p/49981816](https://zhuanlan.zhihu.com/p/49981816)
 * 论文整理：[https://zhuanlan.zhihu.com/p/93703085](https://zhuanlan.zhihu.com/p/93703085)
 * 综述：[https://zhuanlan.zhihu.com/p/94090477](https://zhuanlan.zhihu.com/p/94090477)
+* RoI Pooling：[https://zhuanlan.zhihu.com/p/161540817](https://zhuanlan.zhihu.com/p/161540817)
 

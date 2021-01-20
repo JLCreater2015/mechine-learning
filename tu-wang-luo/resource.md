@@ -16,7 +16,7 @@
 
 ### ✏ 1.2、GNN Model
 
-| 关注点 | 类别 | 典型模型 | 引用 | Github |
+| 关注点 | 类别 | 典型模型 | 引用 | GitHub |
 | :--- | :--- | :--- | :--- | :--- |
 | **图类型** | 无向 | GNN |  |  |
 | **图类型** | 有向 | ADGPM | Rethinking knowledge graph propagation for zero-shot learning | \[[code](https://github.com/cyvius96/adgpm)\] |
@@ -42,7 +42,7 @@
 
 ## 🖌 2、工具
 
-| 名称 | 类型 | 适用场景 | Github |
+| 名称 | 类型 | 适用场景 | GitHub |
 | :--- | :--- | :--- | :--- |
 | OpenNE | 图表示学习 | 图节点表示学习，预训练 | [https://github.com/thunlp/OpenNE](https://github.com/thunlp/OpenNE) |
 | Graph\_nets | 图神经网络 | 基于关系模糊的图数据推理 | [https://github.com/deepmind/graph\_nets](https://github.com/deepmind/graph_nets) |
@@ -58,7 +58,7 @@
 
 ## 🖌 3、应用
 
-| 领域 | 应用 | 算法 | 引用 | Github |
+| 领域 | 应用 | 算法 | 引用 | GitHub |
 | :--- | :--- | :--- | :--- | :--- |
 | **通用** | 关系预测 | RGCN | 《Modeling Relational Data with Graph Convolutional Networks》 | [rgcn](https://github.com/masakicktashiro/rgcn_pytorch_implementation) |
 | **通用** | 关系预测 | SEAL | 《Link Prediction Based on Graph Neural Networks》 | [SEAL](https://github.com/muhanzhang/SEAL) |
@@ -68,12 +68,12 @@
 | **通用** | 图分类 |  | 《Graph Classification using Structural Attention》 |  |
 | **通用** | 图分类 | DGCNN | 《An End-to-End Deep Learning Architecture for Graph Classification》 | [DGCNN](https://github.com/muhanzhang/pytorch_DGCNN) |
 | **通用** | 推荐 | GCN | 《Graph Convolutional Neural Networks for Web-Scale Recommender Systems》 |  |
-| **通用** | 图生成 | NetGAN | 《 Net-gan: Generating graphs via random walks》 |  |
+| **通用** | 图生成 | NetGAN | 《Net-gan: Generating graphs via random walks》 |  |
 | **通用** | 图生成 | GraphRNN | 《GraphRNN: Generating Realistic Graphs with Deep Auto-regressive Models》 |  |
-| **通用** | 图生成 | MolGAN | 《 Molgan: An implicit generative model for small molecular graphs》 |  |
+| **通用** | 图生成 | MolGAN | 《Molgan: An implicit generative model for small molecular graphs》 |  |
 | **决策优化** | 旅行商问题 | GNN | 《Learning to Solve NP-Complete Problems: A Graph Neural Network for Decision TSP》《Attention solves your tsp》 | [TSP-GNN](https://github.com/machine-reasoning-ufrgs/TSP-GNN) / [attention-tsp](https://github.com/wouterkool/attention-tsp) |
 | **决策优化** | 规划器调度 | GNN | 《Adaptive Planner Scheduling with Graph Neural Networks》《Revised note on learning quadratic assignment with graph neural networks》 |  |
-| **决策优化** | 组合优化 | GCN structure2vec | 《Combinatorial Optimization with Graph Convolutional Networks and Guided Tree Search》《 Learning combinatorial optimization algorithms over graphs》 | [NPHard](https://github.com/IntelVCL/NPHard) |
+| **决策优化** | 组合优化 | GCN structure2vec | 《Combinatorial Optimization with Graph Convolutional Networks and Guided Tree Search》《Learning combinatorial optimization algorithms over graphs》 | [NPHard](https://github.com/IntelVCL/NPHard) |
 | **交通** | 出租车需求预测 |  | 《Deep Multi-View Spatial-Temporal Network for Taxi Demand Prediction》 | [DMVST-Net](https://github.com/huaxiuyao/DMVST-Net) |
 | **交通** | 交通流量预测 |  | 《Spatio-Temporal Graph Convolutional Networks:A Deep Learning Framework for Traffic Forecasting》 | [STGCN](https://github.com/FelixOpolka/STGCN-PyTorch) |
 | **交通** | 交通流量预测 |  | 《DIFFUSION CONVOLUTIONAL RECURRENT NEURAL NETWORK: DATA-DRIVEN TRAFFIC FORECASTING》 | [DCRNN](https://github.com/liyaguang/DCRNN) |
@@ -82,17 +82,17 @@
 | **区域安全** | 城市人流预测 |  | 《FCCF: Forecasting Citywide Crowd Flows Based on Big Data》 |  |
 | **社交网络** | 影响力预测 | GCN/GAT | 《DeepInf: Social Influence Prediction with Deep Learning》 | [DeepInf](https://github.com/xptree/DeepInf) |
 | **社交网络** | 转发动作预测 |  | 《Social Influence Locality for Modeling Retweeting Behaviors》 |  |
-| **社交网络** | 转发动作预测 |  | 《 Predicting Retweet via Social Influence Locality》 |  |
-| **文本** | 文本分类 | GCN | 《Diffusion-convolutional neural networks》《 Convolutionalneural networks on graphs with fast localized spectral filtering》《Knowledgetransfer for out-of-knowledge-base entities : A graph neuralnetwork approach》《 Deep convolutional networks on graph-structured data》《 Semi-supervised classification with graph convolutional networks》《 Geometric deep learning on graphs and manifolds using mixture model cnns》 | [dcnn](https://github.com/RicardoZiTseng/dcnn-tensorflow) |
+| **社交网络** | 转发动作预测 |  | 《Predicting Retweet via Social Influence Locality》 |  |
+| **文本** | 文本分类 | GCN | 《Diffusion-convolutional neural networks》《 Convolutionalneural networks on graphs with fast localized spectral filtering》《Knowledgetransfer for out-of-knowledge-base entities : A graph neuralnetwork approach》《Deep convolutional networks on graph-structured data》《Semi-supervised classification with graph convolutional networks》《Geometric deep learning on graphs and manifolds using mixture model cnns》 | [dcnn](https://github.com/RicardoZiTseng/dcnn-tensorflow) |
 
 <table>
   <thead>
     <tr>
-      <th style="text-align:left"></th>
-      <th style="text-align:left"></th>
-      <th style="text-align:left"></th>
-      <th style="text-align:left"></th>
-      <th style="text-align:left"></th>
+      <th style="text-align:left">&#x9886;&#x57DF;</th>
+      <th style="text-align:left">&#x5E94;&#x7528;</th>
+      <th style="text-align:left">&#x7B97;&#x6CD5;</th>
+      <th style="text-align:left">&#x5F15;&#x7528;</th>
+      <th style="text-align:left">GitHub</th>
     </tr>
   </thead>
   <tbody>
@@ -176,17 +176,17 @@
       </td>
       <td style="text-align:left">&#x673A;&#x5668;&#x7FFB;&#x8BD1;</td>
       <td style="text-align:left">GGNN</td>
-      <td style="text-align:left">&#x300A; Graph-to-sequence learningusing gated graph neural networks.
-        &#x300B;</td>
-      <td style="text-align:left"><a href="https://github.com/beckdaniel/acl2018_graph2seq">graph2seq</a>
-      </td>
+      <td style="text-align:left">&#x300A;Graph-to-sequence learningusing gated graph neural networks. &#x300B;</td>
+      <td
+      style="text-align:left"><a href="https://github.com/beckdaniel/acl2018_graph2seq">graph2seq</a>
+        </td>
     </tr>
     <tr>
       <td style="text-align:left"><b>&#x6587;&#x672C;</b>
       </td>
       <td style="text-align:left">&#x5173;&#x7CFB;&#x62BD;&#x53D6;</td>
       <td style="text-align:left">LSTM</td>
-      <td style="text-align:left">&#x300A; End-to-end relation extraction usinglstms on sequences and tree
+      <td style="text-align:left">&#x300A;End-to-end relation extraction usinglstms on sequences and tree
         structures&#x300B;</td>
       <td style="text-align:left"></td>
     </tr>
@@ -205,7 +205,7 @@
       </td>
       <td style="text-align:left">&#x5173;&#x7CFB;&#x62BD;&#x53D6;</td>
       <td style="text-align:left">GCN</td>
-      <td style="text-align:left">&#x300A; Graph convolution over pruned dependency trees improves relation
+      <td style="text-align:left">&#x300A;Graph convolution over pruned dependency trees improves relation
         extraction&#x300B;</td>
       <td style="text-align:left"><a href="https://github.com/qipeng/gcn-over-pruned-trees">gcn-over-pruned-trees</a>
       </td>
@@ -215,8 +215,8 @@
       </td>
       <td style="text-align:left">&#x4E8B;&#x4EF6;&#x62BD;&#x53D6;</td>
       <td style="text-align:left">GCN</td>
-      <td style="text-align:left">&#x300A; Jointly multiple events extractionvia attention-based graph information
-        aggregation&#x300B;/&#x300A;. Graph convolutional networks with argument-aware
+      <td style="text-align:left">&#x300A;Jointly multiple events extractionvia attention-based graph information
+        aggregation&#x300B;/&#x300A;Graph convolutional networks with argument-aware
         pooling for event detection&#x300B;</td>
       <td style="text-align:left"><a href="https://github.com/lx865712528/JMEE">JMEE</a>
       </td>
@@ -235,7 +235,7 @@
       </td>
       <td style="text-align:left">&#x6587;&#x672C;&#x751F;&#x6210;</td>
       <td style="text-align:left">GGNN</td>
-      <td style="text-align:left">&#x300A; Graph-to-sequence learningusing gated graph neural networks&#x300B;</td>
+      <td style="text-align:left">&#x300A;Graph-to-sequence learningusing gated graph neural networks&#x300B;</td>
       <td
       style="text-align:left"></td>
     </tr>
@@ -263,20 +263,22 @@
       </td>
       <td style="text-align:left">&#x56FE;&#x50CF;&#x5206;&#x7C7B;</td>
       <td style="text-align:left">GCN</td>
-      <td style="text-align:left">&#x300A; Few-shot learning with graph neuralnetworks&#x300B;/&#x300A;Zero-shot
+      <td style="text-align:left">&#x300A;Few-shot learning with graph neuralnetworks&#x300B;/&#x300A;Zero-shot
         recognition via semantic embeddings and knowledge graphs&#x300B;</td>
       <td
-      style="text-align:left"><a href="https://github.com/louis2889184/gnn_few_shot_cifar100">gnn_few_shot</a> /
-        <a
-        href="https://github.com/JudyYe/zero-shot-gcn">zero-shot-gcn</a>
-          </td>
+      style="text-align:left">
+        <p><a href="https://github.com/louis2889184/gnn_few_shot_cifar100">gnn_few_shot</a> 
+        </p>
+        <p>/ <a href="https://github.com/JudyYe/zero-shot-gcn">zero-shot-gcn</a>
+        </p>
+        </td>
     </tr>
     <tr>
       <td style="text-align:left"><b>&#x56FE;&#x50CF;/&#x89C6;&#x9891;</b>
       </td>
       <td style="text-align:left">&#x56FE;&#x50CF;&#x5206;&#x7C7B;</td>
       <td style="text-align:left">GGNN</td>
-      <td style="text-align:left">&#x300A; Multi-label zero-shot learning with structured knowledge graphs&#x300B;</td>
+      <td style="text-align:left">&#x300A;Multi-label zero-shot learning with structured knowledge graphs&#x300B;</td>
       <td
       style="text-align:left"><a href="https://people.csail.mit.edu/weifang/project/vll18-mlzsl/">vll18-mlzsl</a>
         </td>
@@ -326,7 +328,7 @@
       </td>
       <td style="text-align:left">&#x8BED;&#x4E49;&#x5206;&#x5272;</td>
       <td style="text-align:left">Graph LSTM</td>
-      <td style="text-align:left">&#x300A; Interpretablestructure-evolving lstm&#x300B;&#x300A; Semantic
+      <td style="text-align:left">&#x300A;Interpretablestructure-evolving lstm&#x300B;&#x300A; Semantic
         objectparsing with graph lstm&#x300B;</td>
       <td style="text-align:left"></td>
     </tr>
@@ -355,7 +357,7 @@
       </td>
       <td style="text-align:left">&#x8BED;&#x4E49;&#x5206;&#x5272;</td>
       <td style="text-align:left">3DGNN</td>
-      <td style="text-align:left">&#x300A; 3d graph neural networks for rgbd semantic segmentation&#x300B;</td>
+      <td style="text-align:left">&#x300A;3d graph neural networks for rgbd semantic segmentation&#x300B;</td>
       <td
       style="text-align:left"><a href="https://github.com/yanx27/3DGNN_pytorch">3DGNN</a>
         </td>
@@ -365,12 +367,13 @@
       </td>
       <td style="text-align:left">&#x7269;&#x7406;&#x7CFB;&#x7EDF;</td>
       <td style="text-align:left">IN</td>
-      <td style="text-align:left">&#x300A; Interaction networks for learning about objects, relations and
+      <td style="text-align:left">&#x300A;Interaction networks for learning about objects, relations and
         physics&#x300B;</td>
       <td style="text-align:left">
         <p><a href="https://github.com/higgsfield/interaction_network_pytorch">interaction_network_pytorch</a>
         </p>
-        <p>Interaction-network_tf</p>
+        <p>/ <a href="https://github.com/jaesik817/Interaction-networks_tensorflow">Interaction-network_tf</a>
+        </p>
       </td>
     </tr>
     <tr>
@@ -378,7 +381,7 @@
       </td>
       <td style="text-align:left">&#x7269;&#x7406;&#x7CFB;&#x7EDF;</td>
       <td style="text-align:left">VIN</td>
-      <td style="text-align:left">&#x300A; Visual interaction networks: Learning a physics simulator from
+      <td style="text-align:left">&#x300A;Visual interaction networks: Learning a physics simulator from
         video&#x300B;</td>
       <td style="text-align:left"></td>
     </tr>
@@ -387,7 +390,7 @@
       </td>
       <td style="text-align:left">&#x7269;&#x7406;&#x7CFB;&#x7EDF;</td>
       <td style="text-align:left">GN</td>
-      <td style="text-align:left">&#x300A; Graph networks as learnable physics engines for inference and
+      <td style="text-align:left">&#x300A;Graph networks as learnable physics engines for inference and
         control&#x300B;</td>
       <td style="text-align:left"><a href="https://github.com/fxia22/gn.pytorch">gn.pytorch</a>
       </td>

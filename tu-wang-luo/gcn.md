@@ -6,9 +6,9 @@
 
 CNN处理的图像或视频数据中的像素点是排列成很整齐的矩阵，也就是很多论文中提到的Euclidean Structure，而很多时候我们需要处理的是Non Euclidean Structure的数据，比如社交网络。
 
-![&#x56FE; 1 &#x56FE;&#x50CF;&#x77E9;&#x9635;&#x793A;&#x610F;&#x56FE;&#xFF08;Euclidean Structure&#xFF09;](../.gitbook/assets/image%20%2847%29.png)
+![&#x56FE; 1 &#x56FE;&#x50CF;&#x77E9;&#x9635;&#x793A;&#x610F;&#x56FE;&#xFF08;Euclidean Structure&#xFF09;](../.gitbook/assets/image%20%2848%29.png)
 
-![&#x56FE; 2 &#x793E;&#x4EA4;&#x7F51;&#x7EDC;&#x62D3;&#x6251;&#x793A;&#x610F;&#xFF08;Non Euclidean Structure&#xFF09;](../.gitbook/assets/image%20%2846%29.png)
+![&#x56FE; 2 &#x793E;&#x4EA4;&#x7F51;&#x7EDC;&#x62D3;&#x6251;&#x793A;&#x610F;&#xFF08;Non Euclidean Structure&#xFF09;](../.gitbook/assets/image%20%2847%29.png)
 
 这种网络结构在图论中被抽象成图谱图。
 

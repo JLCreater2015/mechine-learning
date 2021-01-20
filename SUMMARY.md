@@ -29,6 +29,7 @@
 
 ## 机器学习与模式识别 <a id="pattern-recognition"></a>
 
+* [资源](pattern-recognition/ml-resource.md)
 * [机器学习](pattern-recognition/machine-learning/README.md)
   * [高斯分布](pattern-recognition/machine-learning/gaussian-distribution.md)
   * [线性回归](pattern-recognition/machine-learning/linear-regression.md)
@@ -48,7 +49,10 @@
 
 ## 图网络
 
+* [资源](tu-wang-luo/resource.md)
 * [图卷积网络（GCN）](tu-wang-luo/gcn.md)
+* [Spatial-based GCN](tu-wang-luo/spatial-based-gcn.md)
+* [谱图理论与傅里叶变换](tu-wang-luo/laplacian-matrix.md)
 
 ## 计算机视觉 <a id="computer-vision"></a>
 
@@ -74,8 +78,4 @@
 
 * [R语言](shu-ju-fen-xi/r-language.md)
 * [Matlab](shu-ju-fen-xi/matlab.md)
-
----
-
-* [深度学习资源](deep-learning-resource.md)
 

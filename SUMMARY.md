@@ -43,7 +43,6 @@
 
 ## 深度学习 <a id="deep-learning"></a>
 
-* [深度学习资源](deep-learning/deep-learning-resource.md)
 * [卷积神经网络](deep-learning/cnn.md)
 * [循环神经网络](deep-learning/rnn.md)
 
@@ -75,4 +74,8 @@
 
 * [R语言](shu-ju-fen-xi/r-language.md)
 * [Matlab](shu-ju-fen-xi/matlab.md)
+
+---
+
+* [深度学习资源](deep-learning-resource.md)
 

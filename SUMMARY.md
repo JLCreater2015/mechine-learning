@@ -73,5 +73,6 @@
 
 ## 数据分析
 
-* [Untitled](shu-ju-fen-xi/untitled.md)
+* [R语言](shu-ju-fen-xi/r-language.md)
+* [Matlab](shu-ju-fen-xi/matlab.md)
 

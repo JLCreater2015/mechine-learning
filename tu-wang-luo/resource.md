@@ -58,7 +58,7 @@
 
 ## 🖌 3、应用
 
-| 领域 | 应用 | 算法 | 引用 | GitHub |
+| 领域\#\#\#\# | 应用\#\#\#\# | 算法 | 引用 | GitHub |
 | :--- | :--- | :--- | :--- | :--- |
 | **通用** | 关系预测 | RGCN | 《Modeling Relational Data with Graph Convolutional Networks》 | [rgcn](https://github.com/masakicktashiro/rgcn_pytorch_implementation) |
 | **通用** | 关系预测 | SEAL | 《Link Prediction Based on Graph Neural Networks》 | [SEAL](https://github.com/muhanzhang/SEAL) |
@@ -88,8 +88,8 @@
 <table>
   <thead>
     <tr>
-      <th style="text-align:left">&#x9886;&#x57DF;</th>
-      <th style="text-align:left">&#x5E94;&#x7528;</th>
+      <th style="text-align:left">&#x9886; &#x57DF;#####</th>
+      <th style="text-align:left">&#x5E94;&#x7528;####</th>
       <th style="text-align:left">&#x7B97;&#x6CD5;</th>
       <th style="text-align:left">&#x5F15;&#x7528;</th>
       <th style="text-align:left">GitHub</th>
@@ -111,7 +111,7 @@
       <td style="text-align:left">DGCNN</td>
       <td style="text-align:left">&#x300A;Large-scale hierarchical text classification with recursively
         regularized deep graph-cnn&#x300B;</td>
-      <td style="text-align:left"><a href="https://github.com/HKUST-KnowComp/DeepGraphCNNforTexts">DeepGraphCNNforTexts</a>
+      <td style="text-align:left"><a href="https://github.com/HKUST-KnowComp/DeepGraphCNNforTexts">DGCNNforTexts</a>
       </td>
     </tr>
     <tr>
@@ -136,7 +136,7 @@
     <tr>
       <td style="text-align:left"><b>&#x6587;&#x672C;</b>
       </td>
-      <td style="text-align:left">&#x5E8F;&#x5217;&#x6807;&#x6CE8;(POS, NER)</td>
+      <td style="text-align:left">&#x5E8F;&#x5217;&#x6807;&#x6CE8;</td>
       <td style="text-align:left">Sentence LSTM</td>
       <td style="text-align:left">&#x300A;Sentence-state LSTM for text representation&#x300B;</td>
       <td style="text-align:left"><a href="https://github.com/leuchine/S-LSTM">S-LSTM</a>
@@ -155,7 +155,7 @@
     <tr>
       <td style="text-align:left"><b>&#x6587;&#x672C;</b>
       </td>
-      <td style="text-align:left">&#x8BED;&#x4E49;&#x89D2;&#x8272;&#x6807;&#x6CE8;Syntactic</td>
+      <td style="text-align:left">&#x8BED;&#x4E49;&#x89D2;&#x8272;&#x6807;&#x6CE8;</td>
       <td style="text-align:left">GCN</td>
       <td style="text-align:left">&#x300A;Encoding sentences with graph convolutional networks for semantic
         role labeling&#x300B;</td>
@@ -369,11 +369,9 @@
       <td style="text-align:left">IN</td>
       <td style="text-align:left">&#x300A;Interaction networks for learning about objects, relations and
         physics&#x300B;</td>
-      <td style="text-align:left">
-        <p><a href="https://github.com/higgsfield/interaction_network_pytorch">interaction_network_pytorch</a>
-        </p>
-        <p>/ <a href="https://github.com/jaesik817/Interaction-networks_tensorflow">Interaction-network_tf</a>
-        </p>
+      <td style="text-align:left"><a href="https://github.com/higgsfield/interaction_network_pytorch">pytorch</a> /
+        <a
+        href="https://github.com/jsikyoon/Interaction-networks_tensorflow">tensorflow</a>
       </td>
     </tr>
     <tr>

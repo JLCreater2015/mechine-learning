@@ -370,7 +370,7 @@
       <td style="text-align:left">
         <p><a href="https://github.com/higgsfield/interaction_network_pytorch">interaction_network_pytorch</a>
         </p>
-        <p><a href="https://github.com/jaesik817/Interaction-networks_tensorflow"> Interaction-networks</a>&#x2014;&#x2014;</p>
+        <p>Interaction-network_tf</p>
       </td>
     </tr>
     <tr>

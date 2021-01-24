@@ -392,5 +392,5 @@ $$
 
 #### ✏ 4.5.2、联合训练
 
-直接采用`RPN Loss+ Fast R-CNN Loss`的联合训练方法。
+直接采用`RPN Loss + Fast R-CNN Loss`的联合训练方法。
 

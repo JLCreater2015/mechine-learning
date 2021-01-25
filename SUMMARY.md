@@ -53,6 +53,7 @@
 * [图卷积网络（GCN）](tu-wang-luo/gcn.md)
 * [Spatial-based GCN](tu-wang-luo/spatial-based-gcn.md)
 * [谱图理论与傅里叶变换](tu-wang-luo/laplacian-matrix.md)
+* [Spectral-based GCN](tu-wang-luo/spectral-based-gcn.md)
 
 ## 计算机视觉 <a id="computer-vision"></a>
 

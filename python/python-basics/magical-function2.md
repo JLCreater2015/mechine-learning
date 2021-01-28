@@ -1,6 +1,6 @@
 # 魔法函数（二）
 
-## 11、类的构造、删除 <a id="11&#x7C7B;&#x7684;&#x6784;&#x9020;&#x5220;&#x9664;"></a>
+## 10、类的构造、删除 <a id="11&#x7C7B;&#x7684;&#x6784;&#x9020;&#x5220;&#x9664;"></a>
 
 ```python
 object.__new__(self, ...)
@@ -8,7 +8,7 @@ object.__init__(self, ...)
 object.__del__(self)
 ```
 
-## 12、二元操作符 <a id="12&#x4E8C;&#x5143;&#x64CD;&#x4F5C;&#x7B26;"></a>
+## 11、二元操作符 <a id="12&#x4E8C;&#x5143;&#x64CD;&#x4F5C;&#x7B26;"></a>
 
 ```python
 +   object.__add__(self, other)
@@ -17,6 +17,7 @@ object.__del__(self)
 //  object.__floordiv__(self, other)
 /   object.__div__(self, other)
 %   object.__mod__(self, other)
+divmod()    object.__divmod__(self, other)
 **  object.__pow__(self, other[, modulo])
 <<  object.__lshift__(self, other)
 >>  object.__rshift__(self, other)
@@ -25,7 +26,7 @@ object.__del__(self)
 |   object.__or__(self, other)
 ```
 
-## 13、扩展二元操作符 <a id="13&#x6269;&#x5C55;&#x4E8C;&#x5143;&#x64CD;&#x4F5C;&#x7B26;"></a>
+## 12、扩展二元操作符 <a id="13&#x6269;&#x5C55;&#x4E8C;&#x5143;&#x64CD;&#x4F5C;&#x7B26;"></a>
 
 ```python
 +=  object.__iadd__(self, other)
@@ -40,6 +41,23 @@ object.__del__(self)
 &=  object.__iand__(self, other)
 ^=  object.__ixor__(self, other)
 |=  object.__ior__(self, other)
+```
+
+## 13、反运算符
+
+```python
+__radd__(self, other)	（与上方相同，当左操作数不支持相应的操作时被调用）
+__rsub__(self, other)	（与上方相同，当左操作数不支持相应的操作时被调用）
+__rmul__(self, other)	（与上方相同，当左操作数不支持相应的操作时被调用）
+__rtruediv__(self, other)	（与上方相同，当左操作数不支持相应的操作时被调用）
+__rfloordiv__(self, other)	（与上方相同，当左操作数不支持相应的操作时被调用）
+__rmod__(self, other)	（与上方相同，当左操作数不支持相应的操作时被调用）
+__rdivmod__(self, other)	（与上方相同，当左操作数不支持相应的操作时被调用）
+__rpow__(self, other)	（与上方相同，当左操作数不支持相应的操作时被调用）
+__rlshift__(self, other)	（与上方相同，当左操作数不支持相应的操作时被调用）
+__rrshift__(self, other)	（与上方相同，当左操作数不支持相应的操作时被调用）
+__rxor__(self, other)	（与上方相同，当左操作数不支持相应的操作时被调用）
+__ror__(self, other)	（与上方相同，当左操作数不支持相应的操作时被调用）
 ```
 
 ## 14、一元操作符 <a id="14&#x4E00;&#x5143;&#x64CD;&#x4F5C;&#x7B26;"></a>
@@ -87,7 +105,6 @@ sys.getsizeof() object.__sizeof__(self)
 ## 17、类容器 <a id="17&#x7C7B;&#x5BB9;&#x5668;"></a>
 
 ```python
-len()   object.__len__(self)
 self[key]   object.__getitem__(self, key)
 self[key] = value   object.__setitem__(self, key, value)
 del[key] object.__delitem__(self, key)

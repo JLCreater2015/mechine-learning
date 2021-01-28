@@ -5,18 +5,21 @@
 ## Python
 
 * [语法基础](python/python-basics/README.md)
+  * [命名空间与作用域](python/python-basics/namespace.md)
   * [类型转换](python/python-basics/type-conversion.md)
   * [内建函数](python/python-basics/built-in-functions.md)
   * [魔法函数（一）](python/python-basics/magical-function1.md)
   * [魔法函数（二）](python/python-basics/magical-function2.md)
   * [操作符](python/python-basics/operators.md)
   * [深拷贝与浅拷贝](python/python-basics/deep-copy.md)
+  * [字符串](python/python-basics/string.md)
   * [生成器](python/python-basics/generator.md)
   * [迭代器](python/python-basics/iterator.md)
   * [装饰器](python/python-basics/decorator.md)
   * [闭包](python/python-basics/closure.md)
 * [模块](python/modules/README.md)
   * [Json & h5py](python/modules/json-h5py.md)
+  * [argparse](python/modules/argparse.md)
 * [C++/Python混合编程](python/cpp-python-hybrid-programming.md)
 
 ## 数学基础

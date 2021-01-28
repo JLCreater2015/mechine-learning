@@ -41,12 +41,16 @@ class argparse.ArgumentParser(prog=None, usage=None, description=None,
 ```python
 parser.add_argument('integers', metavar='N', type=int, nargs='+', 
     help='an integer for the accumulator')
-    
+```
+
+函数原型：
+
+```python
 ArgumentParser.add_argument(name or flags...[, action][, nargs][, const]
     [, default][, type][, choices][, required][, help][, metavar][, dest])
 ```
 
-> * name or flags - 一个命名或者一个选项字符串的列表，例如 foo 或 `-f, --foo`。 
+> * name or flags - 一个命名或者一个选项字符串的列表，例如 `foo` 或 `-f, --foo`。 
 > * action - 当参数在命令行中出现时使用的动作基本类型。其选项包含：
 >   * store - 存储参数的值，为默认选项
 >   * store\_const - 存储被 const 命名参数指定的值， 通常用在选项中来指定一些标志 `parser.add_argument('--foo', action='store_const', const=42)`
@@ -69,7 +73,7 @@ ArgumentParser.add_argument(name or flags...[, action][, nargs][, const]
 > * required - 此命令行选项是否可省略 （**仅选项可用**）。 
 > * help - 一个此选项作用的简单描述。 
 > * metavar - 在使用方法消息中使用的参数值示例。 
-> * dest - 被添加到 parse\_args\(\) 所返回对象上的属性名。
+> * dest - 被添加到 `parse_args()` 所返回对象上的属性名。
 
 ### ✏ 2.1、`type`
 
@@ -86,11 +90,11 @@ args = parser.parse_arg()
 print(args.square**2)　
 ```
 
-有了type，程序也可以自动过滤掉相关的不符合类型的参数输入。
+有了`type`，程序也可以自动过滤掉相关的不符合类型的参数输入。
 
 ### ✏ 2.2、nargs
 
-nargs: 当选项后接受多个或者0个参数时需要这个来指定
+nargs: 当选项后接受多个或者0个参数时需要这个来指定。
 
 1、`-u`选项接受2个参数：
 
@@ -147,7 +151,7 @@ usage: [-h] u [u ...]
 Namespace(u='e')  
 ```
 
-### ✏ 2.2、可选参数
+### ✏ 2.3、可选参数
 
 可选参数：为了避免位置参数的顺序混乱问题，可以使用可选参数，需要在关键词前面加`--`。
 
@@ -178,7 +182,7 @@ parser.add_argument("--bool", action = "store_true", required = True, help = "Wh
 # python .py --bool
 ```
 
-### ✏ 2.3、参数简写
+### ✏ 2.4、参数简写
 
 ```python
 parser.add_argument("-b", "--bool", action="store_true")
@@ -188,7 +192,7 @@ parser.add_argument("-b", "--bool", action="store_true")
 
 在参数简写的时候不要定义“-h”，这个是给help用的。
 
-### ✏ 2.4、混合定位参数和可选参数
+### ✏ 2.5、混合定位参数和可选参数
 
 ```python
 import argparse
@@ -218,7 +222,7 @@ the square of 2 = 4
 * 参数值和顺序： 一般我们要把可选参数最后add，不可选参数放前面add。在命令行里面输入代码时，程序会先赋值“先add的参数选项”。
 * count操作计数赋值：如`parser.add_argument("-b", "--bool", action="count", type=int)` 这个时候，在命令后加上 `-b —> bool=1 ; -bb —> bool=2 ;`以此类推。但是这样的话，如果在程序里拿bool作为比较对象的时候，比如`if bool > 0:`，不写`“-b”`的时候会报错，原因是此时的bool是`None`，无法比较，要解决这个问题我们只需要加上一个 **default** 选项：`parser.add_argument("-b", "--bool", action="count", type=int, default=0)就好了。`
 
-### ✏ 2.5、高级用法
+### ✏ 2.6、高级用法
 
 参数冲突：我们可以通过`group`方法，来让group组的参数不可以被同时指定：
 
@@ -262,10 +266,8 @@ else:
 >>> parser.add_argument('--foo')
 >>> parser.parse_args(['-x', 'X'])
 Namespace(foo=None, x='X')
->>> parser.parse_args(['--foo', 'FOO'])
-Namespace(foo='FOO', x=None)
->>> parser.parse_args(['--foo', 'FOO',-x', 'X'])
-Namespace(foo='FOO', x=None)
+>>> parser.parse_args(['--foo', 'FOO', '-x', 'X'])
+Namespace(foo='FOO', x='X')
 ```
 
 ### ✏ 3.2、`parse_known_args()`

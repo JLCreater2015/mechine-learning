@@ -21,6 +21,7 @@
   * [Json & h5py](python/modules/json-h5py.md)
   * [argparse](python/modules/argparse.md)
 * [C++/Python混合编程](python/cpp-python-hybrid-programming.md)
+* [numpy](python/numpy.md)
 
 ## 数学基础
 

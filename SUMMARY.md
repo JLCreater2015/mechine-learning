@@ -20,8 +20,11 @@
 * [模块](python/modules/README.md)
   * [Json & h5py](python/modules/json-h5py.md)
   * [argparse](python/modules/argparse.md)
-* [C++/Python混合编程](python/cpp-python-hybrid-programming.md)
 * [numpy](python/numpy.md)
+* [CPython](python/cpython.md)
+* [C++/Python混合编程](python/cpp-python-hybrid-programming.md)
+* [虚拟环境](python/virtual-env/README.md)
+  * [conda](python/virtual-env/conda.md)
 
 ## 数学基础
 
@@ -84,4 +87,8 @@
 
 * [R语言](shu-ju-fen-xi/r-language.md)
 * [Matlab](shu-ju-fen-xi/matlab.md)
+
+## 并行计算
+
+* [CUDA编程](bing-hang-ji-suan/cuda-code.md)
 

@@ -8,8 +8,7 @@
   * [命名空间与作用域](python/python-basics/namespace.md)
   * [类型转换](python/python-basics/type-conversion.md)
   * [内建函数](python/python-basics/built-in-functions.md)
-  * [魔法函数（一）](python/python-basics/magical-function1.md)
-  * [魔法函数（二）](python/python-basics/magical-function2.md)
+  * [魔法函数](python/python-basics/magical-function.md)
   * [操作符](python/python-basics/operators.md)
   * [深拷贝与浅拷贝](python/python-basics/deep-copy.md)
   * [字符串](python/python-basics/string.md)
@@ -17,6 +16,9 @@
   * [迭代器](python/python-basics/iterator.md)
   * [装饰器](python/python-basics/decorator.md)
   * [闭包](python/python-basics/closure.md)
+  * [面向对象](python/python-basics/oop.md)
+  * [函数式编程](python/python-basics/function-programming.md)
+  * [垃圾回收机制](python/python-basics/garbage-collection-mechanism.md)
 * [模块](python/modules/README.md)
   * [Json & h5py](python/modules/json-h5py.md)
   * [argparse](python/modules/argparse.md)
@@ -46,7 +48,8 @@
 ## 机器学习框架 <a id="frameworks-and-libraries"></a>
 
 * [scikit-learn](frameworks-and-libraries/scikit-learn.md)
-* [Pytorch](frameworks-and-libraries/pytorch.md)
+* [Pytorch](frameworks-and-libraries/pytorch/README.md)
+  * [数据集加载机制](frameworks-and-libraries/pytorch/dataset-dataloader.md)
 * [TensorFlow](frameworks-and-libraries/tensorflow.md)
 
 ## 深度学习 <a id="deep-learning"></a>

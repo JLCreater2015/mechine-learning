@@ -20,9 +20,10 @@
   * [函数式编程](python/python-basics/function-programming.md)
   * [垃圾回收机制](python/python-basics/garbage-collection-mechanism.md)
 * [模块](python/modules/README.md)
-  * [Json & h5py](python/modules/json-h5py.md)
+  * [json & h5py](python/modules/json-h5py.md)
   * [argparse](python/modules/argparse.md)
 * [numpy](python/numpy.md)
+* [pandas](python/pandas.md)
 * [CPython](python/cpython.md)
 * [C++/Python混合编程](python/cpp-python-hybrid-programming.md)
 * [虚拟环境](python/virtual-env/README.md)
@@ -49,7 +50,8 @@
 
 * [scikit-learn](frameworks-and-libraries/scikit-learn.md)
 * [Pytorch](frameworks-and-libraries/pytorch/README.md)
-  * [数据集加载机制](frameworks-and-libraries/pytorch/dataset-dataloader.md)
+  * [Dataset & Dataloader](frameworks-and-libraries/pytorch/dataset-dataloader.md)
+  * [Sampler](frameworks-and-libraries/pytorch/sampler.md)
 * [TensorFlow](frameworks-and-libraries/tensorflow.md)
 
 ## 深度学习 <a id="deep-learning"></a>

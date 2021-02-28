@@ -222,7 +222,7 @@ $$
 1. 在原文中使用的是`ZF model`中，其`Conv Layers`中最后的`conv5`层`num_output=256`，对应生成256张特征图，所以相当于feature map每个点都是256-dimensions；
 2. 在`conv5`之后，做了`rpn_conv/3x3`卷积且`num_output=256`，相当于每个点又融合了周围 $$3\times 3$$ 的空间信息，同时`256-d`不变（如图11中的红框）；
 3. 假设在`conv5 feature map`中每个点上有k个anchor（默认k=9），而每个`anhcor`要分positive和negative，所以每个点由`256-d feature`转化为`cls=2k scores`；而每个anchor都有`(x, y, w, h)`对应4个偏移量，所以`reg=4k coordinates`；
-4. 补充一点，全部anchors拿去训练太多了，训练程序会在合适的anchors中随机选取128个`postive anchors`和128个`negative anchors`进行训练。
+4. 补充一点，全部anchors拿去训练太多了，训练程序会在合适的anchors中随机选取128个`positive anchors`和128个`negative anchors`进行训练。
 
 **其实`RPN`最终就是在原图尺度上，设置了密密麻麻的候选anchor。然后用CNN去判断哪些anchor是里面有目标的positive anchor，哪些是没目标的negative anchor。所以，仅仅是个二分类而已！**
 

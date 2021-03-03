@@ -226,6 +226,10 @@ $$
 
 **其实`RPN`最终就是在原图尺度上，设置了密密麻麻的候选anchor。然后用CNN去判断哪些anchor是里面有目标的positive anchor，哪些是没目标的negative anchor。所以，仅仅是个二分类而已！**
 
+{% hint style="info" %}
+**anchors是在原图上直接生成的。【**[**参考**](https://blog.csdn.net/sinat_33486980/article/details/81099093)**】**
+{% endhint %}
+
 那么anchor一共有多少个？原图`800x600`，`VGG`下采样16倍，feature map每个点设置9个Anchor，所以：
 
 $$
@@ -340,7 +344,7 @@ Proposal Layer有3个输入：`positive vs negative anchors`分类器结果`rpn_
 
 Proposal Layer forward（`caffe layer`的前传函数）按照以下顺序依次处理：
 
-1. 生成anchors，利用 $$[d_x(A),d_y(A),d_w(A),d_h(A)]$$ 对所有的anchors做`bbox regression`回归（这里的anchors生成和训练时完全一致）。
+1. 生成anchors，利用 $$[d_x(A),d_y(A),d_w(A),d_h(A)]$$ 对所有的positive anchors做`bbox regression`回归（这里的anchors生成和训练时完全一致）。
 2. 按照输入的`positive softmax scores`由大到小排序anchors，提取前`pre_nms_topN(e.g. 6000)`个anchors，即提取修正位置后的positive anchors。
 3. clip超出图像边界的positive anchors（防止后续`roi pooling`时proposal超出图像边界）。
 4. 剔除非常小（`width<threshold or height<threshold`）的positive anchors。

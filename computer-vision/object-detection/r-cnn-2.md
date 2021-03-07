@@ -383,6 +383,14 @@ $$
 
 ![](../../.gitbook/assets/image%20%2835%29.png)
 
+Faster R-CNN预测的是预测框（bbox）相对于先验框的offsets值，简单来说，输出值为预测框对于先验框要进行多少程度的调整，所以设计的损失函数要满足一个要求：**找到一种方法来量化这个偏差**。来看看Faster R-CNN的具体做法：
+
+将**偏差**标记为 ![\[&#x516C;&#x5F0F;\]](https://www.zhihu.com/equation?tex=t_%7Bx%7D%2Ct_%7By%7D%2Ct_%7Bw%7D%2Ct_%7Bh%7D) ，其计算方式如下：
+
+![\[&#x516C;&#x5F0F;\]](https://www.zhihu.com/equation?tex=%5C%5C+%5Cbegin%7Baligned%7Dt_%7B%5Cmathrm%7Bx%7D%7D%3D%5Cleft%28x-x_%7B%5Cmathrm%7Ba%7D%7D%5Cright%29+%2F++w_%7B%5Cmathrm%7Ba%7D%7D%2C%5Cquad+t_%7B%5Cmathrm%7By%7D%7D%3D%5Cleft%28y-y_%7B%5Cmathrm%7Ba%7D%7D%5Cright%29+%2F+h_%7B%5Cmathrm%7Ba%7D%7D%2C+%5Cquad+t_%7B%5Cmathrm%7Bw%7D%7D%3D%5Clog+%5Cleft%28w+%2F+w_%7B%5Cmathrm%7Ba%7D%7D%5Cright%29%2C+%5Cquad+t_%7B%5Cmathrm%7Bh%7D%7D%3D%5Clog+%5Cleft%28h+%2F+h_%7B%5Cmathrm%7Ba%7D%7D%5Cright%29++%5C%5C++t_%7B%5Cmathrm%7Bx%7D%7D%5E%7B%2A%7D%3D%5Cleft%28x%5E%7B%2A%7D-x_%7B%5Cmathrm%7Ba%7D%7D%5Cright%29+%2F+w_%7B%5Cmathrm%7Ba%7D%7D%2C+%5Cquad+t_%7B%5Cmathrm%7By%7D%7D%5E%7B%2A%7D%3D%5Cleft%28y%5E%7B%2A%7D-y_%7B%5Cmathrm%7Ba%7D%7D%5Cright%29+%2F+h_%7B%5Cmathrm%7Ba%7D%7D%2C+%5Cquad+t_%7B%5Cmathrm%7Bw%7D%7D%5E%7B%2A%7D%3D%5Clog+%5Cleft%28w%5E%7B%2A%7D+%2F+w_%7B%5Cmathrm%7Ba%7D%7D%5Cright%29%2C+%5Cquad+t_%7B%5Cmathrm%7Bh%7D%7D%5E%7B%2A%7D%3D%5Clog+%5Cleft%28h%5E%7B%2A%7D+%2F+h_%7B%5Cmathrm%7Ba%7D%7D%5Cright%29+%5Cend%7Baligned%7D+%5C%5C)
+
+![\[&#x516C;&#x5F0F;\]](https://www.zhihu.com/equation?tex=x%2Cy%2Cw%2Ch) 代表预测框的中心点，宽和高。 ![\[&#x516C;&#x5F0F;\]](https://www.zhihu.com/equation?tex=x%2Cx_%7Ba%7D%2Cx%5E%7B%2A%7D) 代表预测框，先验框和GT的坐标， ![\[&#x516C;&#x5F0F;\]](https://www.zhihu.com/equation?tex=y%2Cw%2Ch) 同理。模型预测并输出的是这个编码后的偏移量 ![\[&#x516C;&#x5F0F;\]](https://www.zhihu.com/equation?tex=t_%7Bx%7D%2Ct_%7By%7D%2Ct_%7Bw%7D%2Ct_%7Bh%7D) ，最终只要再依照公式反向进行解码，就可以得到预测框的信息。
+
 ### 🖋 4.5、Faster R-CNN训练
 
 #### ✏ 4.5.1、分部训练（原论文）
